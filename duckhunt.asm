@@ -58,8 +58,8 @@ _var_000a = $000A
 _var_000c = $000C
 _var_000d = $000D
 _var_000e = $000E
-_var_000f = $000F
-_var_0010_indexed = $0010
+_var_000f = $000F ; duck/dog X value??
+_var_0010_indexed = $0010 ; duck/dog Y value??
 _var_0011 = $0011
 _var_0012_indexed = $0012
 _var_0013 = $0013
@@ -173,7 +173,7 @@ _var_00be = $00BE
 _var_00c1 = $00C1
 _var_00c2 = $00C2
 _var_00c3_indexed = $00C3
-_var_00c4_indexed = $00C4
+SCORE = $00C4
 _var_00c5_indexed = $00C5
 _var_00c6_indexed = $00C6
 _var_00c7_indexed = $00C7
@@ -979,11 +979,11 @@ _label_c447:
   lda z:_var_0006                ; $C457  A5 06
   jsr _func_c4bf                 ; $C459  20 BF C4
   sta z:_var_00c5_indexed,X      ; $C45C  95 C5
-  lda z:_var_00c4_indexed,X      ; $C45E  B5 C4
+  lda z:SCORE,X      ; $C45E  B5 C4
   sta z:_var_0003                ; $C460  85 03
   lda z:_var_0005                ; $C462  A5 05
   jsr _func_c4bf                 ; $C464  20 BF C4
-  sta z:_var_00c4_indexed,X      ; $C467  95 C4
+  sta z:SCORE,X      ; $C467  95 C4
   rts                            ; $C469  60
 
 _label_c46a:
@@ -1002,12 +1002,12 @@ _label_c46e:
   lda z:_var_0006                ; $C47E  A5 06
   jsr _func_c4e0                 ; $C480  20 E0 C4
   sta z:_var_00c5_indexed,X      ; $C483  95 C5
-  lda z:_var_00c4_indexed,X      ; $C485  B5 C4
+  lda z:SCORE,X      ; $C485  B5 C4
   sta z:_var_0003                ; $C487  85 03
   lda z:_var_0005                ; $C489  A5 05
   jsr _func_c4e0                 ; $C48B  20 E0 C4
-  sta z:_var_00c4_indexed,X      ; $C48E  95 C4
-  lda z:_var_00c4_indexed,X      ; $C490  B5 C4
+  sta z:SCORE,X      ; $C48E  95 C4
+  lda z:SCORE,X      ; $C490  B5 C4
   bne _label_c49c                ; $C492  D0 08
   lda z:_var_00c5_indexed,X      ; $C494  B5 C5
   bne _label_c49c                ; $C496  D0 04
@@ -1030,9 +1030,9 @@ _label_c4a2:
   lda z:_var_00c5_indexed,X      ; $C4B0  B5 C5
   jsr _func_c4e0                 ; $C4B2  20 E0 C4
   sta z:_var_00c5_indexed,X      ; $C4B5  95 C5
-  lda z:_var_00c4_indexed,X      ; $C4B7  B5 C4
+  lda z:SCORE,X      ; $C4B7  B5 C4
   jsr _func_c4e0                 ; $C4B9  20 E0 C4
-  sta z:_var_00c4_indexed,X      ; $C4BC  95 C4
+  sta z:SCORE,X      ; $C4BC  95 C4
 
 _label_c4be:
   rts                            ; $C4BE  60
@@ -1130,7 +1130,7 @@ _label_c52f:
   sta z:_var_0003                ; $C53D  85 03
   lda z:_var_00c9_indexed,X      ; $C53F  B5 C9
   jsr _func_c4e0                 ; $C541  20 E0 C4
-  lda a:_var_00c4_indexed,Y      ; $C544  B9 C4 00
+  lda a:SCORE,Y      ; $C544  B9 C4 00
   sta z:_var_0003                ; $C547  85 03
   lda z:_var_00c8_indexed,X      ; $C549  B5 C8
   jsr _func_c4e0                 ; $C54B  20 E0 C4
@@ -1150,7 +1150,7 @@ _label_c55a:
   lda z:_var_00c7_indexed,X      ; $C55F  B5 C7
   sta z:_var_00c3_indexed        ; $C561  85 C3
   lda z:_var_00c8_indexed,X      ; $C563  B5 C8
-  sta z:_var_00c4_indexed        ; $C565  85 C4
+  sta z:SCORE        ; $C565  85 C4
   lda z:_var_00c9_indexed,X      ; $C567  B5 C9
   sta z:_var_00c5_indexed        ; $C569  85 C5
   lda z:_var_00ca_indexed,X      ; $C56B  B5 CA

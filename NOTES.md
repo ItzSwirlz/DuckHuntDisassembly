@@ -1,9 +1,15 @@
 This keeps notes of things - soon nesgodisasm will hopefully have a way to automatically rename the variables when disassembling so we don't have to keep finding/replacing what we know
 
 # Misc
-SCORE = $00C4
 SELECTEDGAMEMODE = $05FE ; 0 = a, 1 = b, 2 = c
 
+# Score
+The score is set by three variables, each representing 2 places in the score. I name them A (first 2), B (middle 2), C (last 2)
+12 | 34 | 56
+A  | B  | C
+SCOREA = $00C4
+SCOREB = $00C5
+SCOREC = $00C6
 
 # Coordinates of things?
 _var_000f = $000F ; duck/dog X value??

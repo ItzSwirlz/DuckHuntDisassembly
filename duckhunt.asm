@@ -253,7 +253,7 @@ _var_05ef = $05EF
 _var_05f0_indexed = $05F0
 _var_05fc = $05FC
 _var_05fd = $05FD
-_var_05fe = $05FE
+SELECTEDGAMEMODE = $05FE
 _var_05ff = $05FF
 _var_0610 = $0610
 _var_0612 = $0612
@@ -504,14 +504,14 @@ _label_c190:
   bne _label_c1b7                ; $C197  D0 1E
 
 _label_c199:
-  ldy a:_var_05fe                ; $C199  AC FE 05
+  ldy a:SELECTEDGAMEMODE                ; $C199  AC FE 05
   iny                            ; $C19C  C8
   cpy #$03                       ; $C19D  C0 03
   bne _label_c1a3                ; $C19F  D0 02
   ldy #$00                       ; $C1A1  A0 00
 
 _label_c1a3:
-  sty a:_var_05fe                ; $C1A3  8C FE 05
+  sty a:SELECTEDGAMEMODE                ; $C1A3  8C FE 05
   jmp _label_c1b2                ; $C1A6  4C B2 C1
 
 _label_c1a9:
@@ -540,7 +540,7 @@ _label_c1c8:
   sta a:_var_0501_indexed,X      ; $C1C8  9D 01 05
   dex                            ; $C1CB  CA
   bpl _label_c1c8                ; $C1CC  10 FA
-  lda a:_var_05fe                ; $C1CE  AD FE 05
+  lda a:SELECTEDGAMEMODE                ; $C1CE  AD FE 05
   asl a                          ; $C1D1  0A
   tax                            ; $C1D2  AA
   lda #$26                       ; $C1D3  A9 26
@@ -548,7 +548,7 @@ _label_c1c8:
   ldx #$26                       ; $C1D8  A2 26
   ldy #$22                       ; $C1DA  A0 22
   jsr _func_c71d                 ; $C1DC  20 1D C7
-  lda a:_var_05fe                ; $C1DF  AD FE 05
+  lda a:SELECTEDGAMEMODE                ; $C1DF  AD FE 05
   asl a                          ; $C1E2  0A
   asl a                          ; $C1E3  0A
   clc                            ; $C1E4  18
@@ -1640,7 +1640,7 @@ _label_c81d:
   jsr _func_c22b                 ; $C823  20 2B C2
   jsr _func_d4d9                 ; $C826  20 D9 D4
   ldx #$01                       ; $C829  A2 01
-  lda a:_var_05fe                ; $C82B  AD FE 05
+  lda a:SELECTEDGAMEMODE                ; $C82B  AD FE 05
   sta z:_var_001f                ; $C82E  85 1F
   cmp #$02                       ; $C830  C9 02
   bcc _label_c836                ; $C832  90 02

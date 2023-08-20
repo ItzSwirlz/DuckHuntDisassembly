@@ -2,6 +2,7 @@ This keeps notes of things - soon nesgodisasm will hopefully have a way to autom
 
 # Misc
 SCORE = $00C4
+SELECTEDGAMEMODE = $05FE ; 0 = a, 1 = b, 2 = c
 
 
 # Coordinates of things?

@@ -19,6 +19,7 @@ APU_DMC_LEN = $4013
 APU_DMC_RAW = $4011
 APU_DMC_START = $4012
 APU_FRAME = $4017
+APU_NOISE_HI = $400F
 APU_NOISE_LO = $400E
 APU_NOISE_VOL = $400C
 APU_PL1_HI = $4003
@@ -193,6 +194,8 @@ _var_00e0_indexed = $00E0
 _var_00e4 = $00E4
 _var_00e5 = $00E5
 _var_00e6 = $00E6
+_var_00e7 = $00E7
+_var_00e9 = $00E9
 _var_00ea = $00EA
 _var_00eb = $00EB
 _var_00ec = $00EC
@@ -5294,7 +5297,7 @@ _func_f3d0:
   lda #$7F                       ; $F3D0  A9 7F
   sta APU_PL1_SWEEP              ; $F3D2  8D 01 40
   sta APU_PL2_SWEEP              ; $F3D5  8D 05 40
-  stx z:$E9                      ; $F3D8  86 E9
+  stx z:_var_00e9                ; $F3D8  86 E9
   sty z:_var_00ea                ; $F3DA  84 EA
   rts                            ; $F3DC  60
 
@@ -5302,8 +5305,16 @@ _func_f3d0:
 
 _data_f3e1_indexed:
 .byte $4f, $53, $58, $5e, $63, $69, $70, $76, $7e, $85, $8d, $90, $92, $93, $92, $d5
-.byte $40, $c0, $b2, $df, $ff, $80, $02, $7f, $0f, $08, $00, $7f, $03, $08, $ff, $10
-.byte $00, $18, $10, $01, $18, $00, $01, $88, $06, $02, $40, $05, $02, $c0
+.byte $40, $c0, $b2, $df, $ff, $80, $02, $7f, $0f, $08, $00, $7f, $03, $08, $ff
+
+_data_f400_indexed:
+.byte $10
+
+_data_f401_indexed:
+.byte $00
+
+_data_f402_indexed:
+.byte $18, $10, $01, $18, $00, $01, $88, $06, $02, $40, $05, $02, $c0
 
 _label_f40f:
   lda z:_var_00f9_indexed        ; $F40F  A5 F9
@@ -5320,15 +5331,30 @@ _label_f40f:
   lda (_var_00f8_indexed),Y      ; $F427  B1 F8
   beq _label_f443                ; $F429  F0 18
   jmp _label_f51c                ; $F42B  4C 1C F5
+  tya                            ; $F42E  98
+  bpl _label_f43a                ; $F42F  10 09
+  jsr _func_f544                 ; $F431  20 44 F5
+  ldy z:_var_00d0_indexed        ; $F434  A4 D0
+  inc z:_var_00d0_indexed        ; $F436  E6 D0
+  lda (_var_00f8_indexed),Y      ; $F438  B1 F8
 
-.byte $98, $10, $09, $20, $44, $f5, $a4, $d0, $e6, $d0, $b1, $f8, $20, $50, $f5, $d0
-.byte $09, $a0, $10, $d0, $07
+_label_f43a:
+  jsr _func_f550                 ; $F43A  20 50 F5
+  bne _label_f448                ; $F43D  D0 09
+  ldy #$10                       ; $F43F  A0 10
+  bne _label_f44a                ; $F441  D0 07
 
 _label_f443:
   lda #$00                       ; $F443  A9 00
   jmp _label_f68c                ; $F445  4C 8C F6
 
-.byte $a4, $e9, $8c, $00, $40, $a5, $dc, $85, $d8
+_label_f448:
+  ldy z:_var_00e9                ; $F448  A4 E9
+
+_label_f44a:
+  sty APU_PL1_VOL                ; $F44A  8C 00 40
+  lda z:_var_00dc_indexed        ; $F44D  A5 DC
+  sta z:_var_00d8                ; $F44F  85 D8
 
 _label_f451:
   lda z:_var_00fb                ; $F451  A5 FB
@@ -5373,11 +5399,43 @@ _label_f47e:
   inc z:_var_00d2                ; $F494  E6 D2
   lda (_var_00fc_indexed),Y      ; $F496  B1 FC
   jmp _label_f51c                ; $F498  4C 1C F5
+  tya                            ; $F49B  98
+  bpl _label_f4bf                ; $F49C  10 21
+  jsr _func_f544                 ; $F49E  20 44 F5
+  ldy z:_var_00e4                ; $F4A1  A4 E4
+  beq _label_f4a9                ; $F4A3  F0 04
+  lda #$FF                       ; $F4A5  A9 FF
+  bne _label_f4b4                ; $F4A7  D0 0B
 
-.byte $98, $10, $21, $20, $44, $f5, $a4, $e4, $f0, $04, $a9, $ff, $d0, $0b, $18, $69
-.byte $fe, $0a, $0a, $c9, $3c, $90, $02, $a9, $3c, $8d, $08, $40, $85, $e7, $a4, $d2
-.byte $e6, $d2, $b1, $fc, $20, $68, $f5, $d0, $04, $a0, $00, $f0, $02, $a4, $e7, $8c
-.byte $08, $40, $a5, $de, $85, $da
+_label_f4a9:
+  clc                            ; $F4A9  18
+  adc #$FE                       ; $F4AA  69 FE
+  asl a                          ; $F4AC  0A
+  asl a                          ; $F4AD  0A
+  cmp #$3C                       ; $F4AE  C9 3C
+  bcc _label_f4b4                ; $F4B0  90 02
+  lda #$3C                       ; $F4B2  A9 3C
+
+_label_f4b4:
+  sta APU_TRI_LINEAR             ; $F4B4  8D 08 40
+  sta z:_var_00e7                ; $F4B7  85 E7
+  ldy z:_var_00d2                ; $F4B9  A4 D2
+  inc z:_var_00d2                ; $F4BB  E6 D2
+  lda (_var_00fc_indexed),Y      ; $F4BD  B1 FC
+
+_label_f4bf:
+  jsr _func_f568                 ; $F4BF  20 68 F5
+  bne _label_f4c8                ; $F4C2  D0 04
+  ldy #$00                       ; $F4C4  A0 00
+  beq _label_f4ca                ; $F4C6  F0 02
+
+_label_f4c8:
+  ldy z:_var_00e7                ; $F4C8  A4 E7
+
+_label_f4ca:
+  sty APU_TRI_LINEAR             ; $F4CA  8C 08 40
+  lda z:$DE                      ; $F4CD  A5 DE
+  sta z:_var_00da                ; $F4CF  85 DA
 
 _label_f4d1:
   lda z:_var_00ff                ; $F4D1  A5 FF
@@ -5393,15 +5451,35 @@ _label_f4d1:
   inc z:_var_00d3                ; $F4E7  E6 D3
   lda (_var_00fe_indexed),Y      ; $F4E9  B1 FE
   jmp _label_f51c                ; $F4EB  4C 1C F5
+  tya                            ; $F4EE  98
+  bpl _label_f4fa                ; $F4EF  10 09
+  jsr _func_f544                 ; $F4F1  20 44 F5
+  ldy z:_var_00d3                ; $F4F4  A4 D3
+  inc z:_var_00d3                ; $F4F6  E6 D3
+  lda (_var_00fe_indexed),Y      ; $F4F8  B1 FE
 
-.byte $98, $10, $09, $20, $44, $f5, $a4, $d3, $e6, $d3, $b1, $fe, $20, $02, $f5, $a5
-.byte $df, $85, $db
+_label_f4fa:
+  jsr _func_f502                 ; $F4FA  20 02 F5
+  lda z:$DF                      ; $F4FD  A5 DF
+  sta z:_var_00db                ; $F4FF  85 DB
 
 _label_f501:
   rts                            ; $F501  60
 
-.byte $a8, $a5, $f3, $c9, $02, $f0, $12, $b9, $00, $f4, $8d, $0c, $40, $b9, $01, $f4
-.byte $8d, $0e, $40, $b9, $02, $f4, $8d, $0f, $40, $60
+_func_f502:
+  tay                            ; $F502  A8
+  lda z:_var_00f3                ; $F503  A5 F3
+  cmp #$02                       ; $F505  C9 02
+  beq _label_f51b                ; $F507  F0 12
+  lda a:_data_f400_indexed,Y     ; $F509  B9 00 F4
+  sta APU_NOISE_VOL              ; $F50C  8D 0C 40
+  lda a:_data_f401_indexed,Y     ; $F50F  B9 01 F4
+  sta APU_NOISE_LO               ; $F512  8D 0E 40
+  lda a:_data_f402_indexed,Y     ; $F515  B9 02 F4
+  sta APU_NOISE_HI               ; $F518  8D 0F 40
+
+_label_f51b:
+  rts                            ; $F51B  60
 
 _label_f51c:
   tay                            ; $F51C  A8
@@ -5440,7 +5518,8 @@ _func_f544:
   sta z:_var_00dc_indexed,X      ; $F54D  95 DC
   rts                            ; $F54F  60
 
-.byte $a2, $00
+_func_f550:
+  ldx #$00                       ; $F550  A2 00
 
 _label_f552:
   tay                            ; $F552  A8
@@ -5457,6 +5536,8 @@ _label_f563:
 _func_f564:
   ldx #$04                       ; $F564  A2 04
   bne _label_f552                ; $F566  D0 EA
+
+_func_f568:
   ldx #$08                       ; $F568  A2 08
   bne _label_f552                ; $F56A  D0 E6
 

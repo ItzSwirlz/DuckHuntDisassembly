@@ -3,6 +3,9 @@ This keeps notes of things - soon nesgodisasm will hopefully have a way to autom
 # Misc
 SELECTEDGAMEMODE = $05FE ; 0 = a, 1 = b, 2 = c
 
+## Needs naming/confirmation
+DOGANIMATION = $00BD ; In single duck mode, the game sets this to 0x1 in between the time the duck dies, in between to when the next duck is flying. Probably used as a pause variable. Oddly enough, if set to 0x01 all the time in a cheat, the dog always catches; even if you do NOTHING. But, the game does not count the duck as actually *caught*, even if you hit it. Vice-versa for 0x0 - even if you shoot the duck, the dog will think you missed it. Setting to 0xFF, the dog thinks you caught both ducks (yes, both ducks, even in 1-duck mode.) So I don't know what to name this - but it definitely determines what the dog does.
+
 # Game Phase?? (Unconfirmed, I need to check this)
 PHASE = $0031
 Being set to 01 shows the "ROUND" number

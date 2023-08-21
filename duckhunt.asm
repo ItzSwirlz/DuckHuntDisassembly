@@ -173,9 +173,9 @@ _var_00be = $00BE
 _var_00c1 = $00C1
 _var_00c2 = $00C2
 _var_00c3_indexed = $00C3
-SCOREA = $00C4
-SCOREB = $00C5
-SCOREC = $00C6
+ScoreA = $00C4
+ScoreB = $00C5
+ScoreC = $00C6
 _var_00c7_indexed = $00C7
 _var_00c8_indexed = $00C8
 _var_00c9_indexed = $00C9
@@ -237,7 +237,7 @@ _var_03a0 = $03A0
 _var_03a1 = $03A1
 _var_03ef_indexed = $03EF
 _var_03f0_indexed = $03F0
-BACKGROUNDCOLOR = $0403
+BackgroundColor = $0403
 _var_0430_indexed = $0430
 _var_0440_indexed = $0440
 _var_0442_indexed = $0442
@@ -254,8 +254,8 @@ _var_05f0_indexed = $05F0
 _var_05fc = $05FC
 _var_05fd = $05FD
 
-SELECTEDGAMEMODE = $05FE
-MENUACTION = $05FF
+SelectedGameMode = $05FE
+MenuAction = $05FF
 
 _var_0610 = $0610
 _var_0612 = $0612
@@ -463,7 +463,7 @@ _label_c123:
 
 _label_c14e:
   lda #$00                       ; $C14E  A9 00
-  sta a:MENUACTION                ; $C150  8D FF 05 - load 0x0 to MENUACTION, which means doing nothing, sit on idle
+  sta a:MenuAction                ; $C150  8D FF 05 - load 0x0 to MenuAction, which means doing nothing, sit on idle
   lda #$01                       ; $C153  A9 01
   sta z:_var_00b9                ; $C155  85 B9
   sta z:_var_00ba                ; $C157  85 BA
@@ -471,17 +471,17 @@ _label_c14e:
   beq _label_c18d                ; $C15B  F0 30
   jsr _func_d131                 ; $C15D  20 31 D1
   jsr _func_d160                 ; $C160  20 60 D1
-  lda a:MENUACTION                ; $C163  AD FF 05
-  cmp #$01                       ; $C166  C9 01 - if MENUACTION is set to 0x1
-  beq STARTGAME                ; $C168  F0 0C - it means Start has been pressed, go into the game
-  cmp #$02                       ; $C16A  C9 02 - if MENUACTION is set to 0x2
+  lda a:MenuAction                ; $C163  AD FF 05
+  cmp #$01                       ; $C166  C9 01 - if MenuAction is set to 0x1
+  beq StartGame                ; $C168  F0 0C - it means Start has been pressed, go into the game
+  cmp #$02                       ; $C16A  C9 02 - if MenuAction is set to 0x2
   beq CycleGameMode                ; $C16C  F0 2B - cycle to the next gamemode
   lda z:_var_0016_indexed        ; $C16E  A5 16
   and #$30                       ; $C170  29 30
   cmp #$10                       ; $C172  C9 10
   bne _label_c189                ; $C174  D0 13
 
-STARTGAME:
+StartGame:
   lda #$00                       ; $C176  A9 00
   sta z:_var_0024                ; $C178  85 24
   sta z:_var_0025                ; $C17A  85 25
@@ -506,14 +506,14 @@ _label_c190:
   bne _label_c1b7                ; $C197  D0 1E
 
 CycleGameMode:
-  ldy a:SELECTEDGAMEMODE                ; $C199  AC FE 05 - load Y to SELECTEDGAMEMODE
+  ldy a:SelectedGameMode                ; $C199  AC FE 05 - load Y to SelectedGameMode
   iny                            ; $C19C  C8 - Increment Y, also incrementing SELECTGAMEMODE
-  cpy #$03                       ; $C19D  C0 03 - Compare with 0x3; SELECTEDGAMEMODE should be 0x0, 0x1, or 0x2.
+  cpy #$03                       ; $C19D  C0 03 - Compare with 0x3; SelectedGameMode should be 0x0, 0x1, or 0x2.
   bne SetGameMode                ; $C19F  D0 02 - If valid, call SetGameMode (valid option!)
   ldy #$00                       ; $C1A1  A0 00 - Otherwise, we cycled to last gamemode/final option, go back to the first
 
 SetGameMode:
-  sty a:SELECTEDGAMEMODE                ; $C1A3  8C FE 05 - Store the value of what is selected to the SELECTEDGAMEMODE
+  sty a:SelectedGameMode                ; $C1A3  8C FE 05 - Store the value of what is selected to the SelectedGameMode
   jmp _label_c1b2                ; $C1A6  4C B2 C1
 
 _label_c1a9:
@@ -542,7 +542,7 @@ _label_c1c8:
   sta a:_var_0501_indexed,X      ; $C1C8  9D 01 05
   dex                            ; $C1CB  CA
   bpl _label_c1c8                ; $C1CC  10 FA
-  lda a:SELECTEDGAMEMODE                ; $C1CE  AD FE 05
+  lda a:SelectedGameMode                ; $C1CE  AD FE 05
   asl a                          ; $C1D1  0A
   tax                            ; $C1D2  AA
   lda #$26                       ; $C1D3  A9 26
@@ -550,7 +550,7 @@ _label_c1c8:
   ldx #$26                       ; $C1D8  A2 26
   ldy #$22                       ; $C1DA  A0 22
   jsr _func_c71d                 ; $C1DC  20 1D C7
-  lda a:SELECTEDGAMEMODE                ; $C1DF  AD FE 05
+  lda a:SelectedGameMode                ; $C1DF  AD FE 05
   asl a                          ; $C1E2  0A
   asl a                          ; $C1E3  0A
   clc                            ; $C1E4  18
@@ -971,21 +971,21 @@ _func_c437:
 
 _label_c447:
   clc                            ; $C447  18
-  lda z:SCOREC,X      ; $C448  B5 C6
+  lda z:ScoreC,X      ; $C448  B5 C6
   sta z:_var_0003                ; $C44A  85 03
   lda z:_var_0007                ; $C44C  A5 07
   jsr _func_c4bf                 ; $C44E  20 BF C4
-  sta z:SCOREC,X      ; $C451  95 C6
-  lda z:SCOREB,X      ; $C453  B5 C5
+  sta z:ScoreC,X      ; $C451  95 C6
+  lda z:ScoreB,X      ; $C453  B5 C5
   sta z:_var_0003                ; $C455  85 03
   lda z:_var_0006                ; $C457  A5 06
   jsr _func_c4bf                 ; $C459  20 BF C4
-  sta z:SCOREB,X      ; $C45C  95 C5
-  lda z:SCOREA,X      ; $C45E  B5 C4
+  sta z:ScoreB,X      ; $C45C  95 C5
+  lda z:ScoreA,X      ; $C45E  B5 C4
   sta z:_var_0003                ; $C460  85 03
   lda z:_var_0005                ; $C462  A5 05
   jsr _func_c4bf                 ; $C464  20 BF C4
-  sta z:SCOREA,X      ; $C467  95 C4
+  sta z:ScoreA,X      ; $C467  95 C4
   rts                            ; $C469  60
 
 _label_c46a:
@@ -994,26 +994,26 @@ _label_c46a:
 
 _label_c46e:
   sec                            ; $C46E  38
-  lda z:SCOREC,X      ; $C46F  B5 C6
+  lda z:ScoreC,X      ; $C46F  B5 C6
   sta z:_var_0003                ; $C471  85 03
   lda z:_var_0007                ; $C473  A5 07
   jsr _func_c4e0                 ; $C475  20 E0 C4
-  sta z:SCOREC,X      ; $C478  95 C6
-  lda z:SCOREB,X      ; $C47A  B5 C5
+  sta z:ScoreC,X      ; $C478  95 C6
+  lda z:ScoreB,X      ; $C47A  B5 C5
   sta z:_var_0003                ; $C47C  85 03
   lda z:_var_0006                ; $C47E  A5 06
   jsr _func_c4e0                 ; $C480  20 E0 C4
-  sta z:SCOREB,X      ; $C483  95 C5
-  lda z:SCOREA,X      ; $C485  B5 C4
+  sta z:ScoreB,X      ; $C483  95 C5
+  lda z:ScoreA,X      ; $C485  B5 C4
   sta z:_var_0003                ; $C487  85 03
   lda z:_var_0005                ; $C489  A5 05
   jsr _func_c4e0                 ; $C48B  20 E0 C4
-  sta z:SCOREA,X      ; $C48E  95 C4
-  lda z:SCOREA,X      ; $C490  B5 C4
+  sta z:ScoreA,X      ; $C48E  95 C4
+  lda z:ScoreA,X      ; $C490  B5 C4
   bne _label_c49c                ; $C492  D0 08
-  lda z:SCOREB,X      ; $C494  B5 C5
+  lda z:ScoreB,X      ; $C494  B5 C5
   bne _label_c49c                ; $C496  D0 04
-  lda z:SCOREC,X      ; $C498  B5 C6
+  lda z:ScoreC,X      ; $C498  B5 C6
   beq _label_c4a2                ; $C49A  F0 06
 
 _label_c49c:
@@ -1026,15 +1026,15 @@ _label_c4a2:
   sec                            ; $C4A4  38
   lda #$00                       ; $C4A5  A9 00
   sta z:_var_0003                ; $C4A7  85 03
-  lda z:SCOREC,X      ; $C4A9  B5 C6
+  lda z:ScoreC,X      ; $C4A9  B5 C6
   jsr _func_c4e0                 ; $C4AB  20 E0 C4
-  sta z:SCOREC,X      ; $C4AE  95 C6
-  lda z:SCOREB,X      ; $C4B0  B5 C5
+  sta z:ScoreC,X      ; $C4AE  95 C6
+  lda z:ScoreB,X      ; $C4B0  B5 C5
   jsr _func_c4e0                 ; $C4B2  20 E0 C4
-  sta z:SCOREB,X      ; $C4B5  95 C5
-  lda z:SCOREA,X      ; $C4B7  B5 C4
+  sta z:ScoreB,X      ; $C4B5  95 C5
+  lda z:ScoreA,X      ; $C4B7  B5 C4
   jsr _func_c4e0                 ; $C4B9  20 E0 C4
-  sta z:SCOREA,X      ; $C4BC  95 C4
+  sta z:ScoreA,X      ; $C4BC  95 C4
 
 _label_c4be:
   rts                            ; $C4BE  60
@@ -1124,15 +1124,15 @@ _label_c526:
 
 _label_c52f:
   sec                            ; $C52F  38
-  lda a:SCOREC,Y      ; $C530  B9 C6 00
+  lda a:ScoreC,Y      ; $C530  B9 C6 00
   sta z:_var_0003                ; $C533  85 03
   lda z:_var_00ca_indexed,X      ; $C535  B5 CA
   jsr _func_c4e0                 ; $C537  20 E0 C4
-  lda a:SCOREB,Y      ; $C53A  B9 C5 00
+  lda a:ScoreB,Y      ; $C53A  B9 C5 00
   sta z:_var_0003                ; $C53D  85 03
   lda z:_var_00c9_indexed,X      ; $C53F  B5 C9
   jsr _func_c4e0                 ; $C541  20 E0 C4
-  lda a:SCOREA,Y      ; $C544  B9 C4 00
+  lda a:ScoreA,Y      ; $C544  B9 C4 00
   sta z:_var_0003                ; $C547  85 03
   lda z:_var_00c8_indexed,X      ; $C549  B5 C8
   jsr _func_c4e0                 ; $C54B  20 E0 C4
@@ -1152,11 +1152,11 @@ _label_c55a:
   lda z:_var_00c7_indexed,X      ; $C55F  B5 C7
   sta z:_var_00c3_indexed        ; $C561  85 C3
   lda z:_var_00c8_indexed,X      ; $C563  B5 C8
-  sta z:SCOREA        ; $C565  85 C4
+  sta z:ScoreA        ; $C565  85 C4
   lda z:_var_00c9_indexed,X      ; $C567  B5 C9
-  sta z:SCOREB        ; $C569  85 C5
+  sta z:ScoreB        ; $C569  85 C5
   lda z:_var_00ca_indexed,X      ; $C56B  B5 CA
-  sta z:SCOREC        ; $C56D  85 C6
+  sta z:ScoreC        ; $C56D  85 C6
 
 _label_c56f:
   lda z:_var_0000_indexed        ; $C56F  A5 00
@@ -1642,7 +1642,7 @@ _label_c81d:
   jsr _func_c22b                 ; $C823  20 2B C2
   jsr _func_d4d9                 ; $C826  20 D9 D4
   ldx #$01                       ; $C829  A2 01
-  lda a:SELECTEDGAMEMODE                ; $C82B  AD FE 05
+  lda a:SelectedGameMode                ; $C82B  AD FE 05
   sta z:_var_001f                ; $C82E  85 1F
   cmp #$02                       ; $C830  C9 02
   bcc _label_c836                ; $C832  90 02
@@ -2823,7 +2823,7 @@ _func_cf44:
 
 _label_cf49:
   lda a:_data_e724_indexed,X     ; $CF49  BD 24 E7
-  sta a:BACKGROUNDCOLOR,Y      ; $CF4C  99 03 04
+  sta a:BackgroundColor,Y      ; $CF4C  99 03 04
   inx                            ; $CF4F  E8
   iny                            ; $CF50  C8
   dec z:_var_000d                ; $CF51  C6 0D
@@ -2881,7 +2881,7 @@ _func_cf96:
   lda #$01                       ; $CFA7  A9 01
   sta z:_var_0027                ; $CFA9  85 27
   lda #$36                       ; $CFAB  A9 36
-  sta a:BACKGROUNDCOLOR        ; $CFAD  8D 03 04
+  sta a:BackgroundColor        ; $CFAD  8D 03 04
   sta a:$0407                    ; $CFB0  8D 07 04
   sta a:$040B                    ; $CFB3  8D 0B 04
   sta a:$040F                    ; $CFB6  8D 0F 04
@@ -3290,7 +3290,7 @@ _label_d222:
   lda #$01                       ; $D233  A9 01
 
 _label_d235:
-  sta a:MENUACTION                ; $D235  8D FF 05
+  sta a:MenuAction                ; $D235  8D FF 05
   lda #$01                       ; $D238  A9 01
   sta z:_var_0023                ; $D23A  85 23
   lda #$00                       ; $D23C  A9 00

@@ -473,7 +473,7 @@ _label_c14e:
   cmp #$01                       ; $C166  C9 01
   beq _label_c176                ; $C168  F0 0C
   cmp #$02                       ; $C16A  C9 02
-  beq _label_c199                ; $C16C  F0 2B
+  beq CycleGameMode                ; $C16C  F0 2B
   lda z:_var_0016_indexed        ; $C16E  A5 16
   and #$30                       ; $C170  29 30
   cmp #$10                       ; $C172  C9 10
@@ -503,15 +503,15 @@ _label_c190:
   lda a:_var_05fd                ; $C194  AD FD 05
   bne _label_c1b7                ; $C197  D0 1E
 
-_label_c199:
-  ldy a:SELECTEDGAMEMODE                ; $C199  AC FE 05
-  iny                            ; $C19C  C8
-  cpy #$03                       ; $C19D  C0 03
-  bne _label_c1a3                ; $C19F  D0 02
-  ldy #$00                       ; $C1A1  A0 00
+CycleGameMode:
+  ldy a:SELECTEDGAMEMODE                ; $C199  AC FE 05 - load Y to SELECTEDGAMEMODE
+  iny                            ; $C19C  C8 - Increment Y, also incrementing SELECTGAMEMODE
+  cpy #$03                       ; $C19D  C0 03 - Compare with 0x3; SELECTEDGAMEMODE should be 0x0, 0x1, or 0x2.
+  bne SetGameMode                ; $C19F  D0 02 - If valid, call SetGameMode (valid option!)
+  ldy #$00                       ; $C1A1  A0 00 - Otherwise, we cycled to last gamemode/final option, go back to the first
 
-_label_c1a3:
-  sty a:SELECTEDGAMEMODE                ; $C1A3  8C FE 05
+SetGameMode:
+  sty a:SELECTEDGAMEMODE                ; $C1A3  8C FE 05 - Store the value of what is selected to the SELECTEDGAMEMODE
   jmp _label_c1b2                ; $C1A6  4C B2 C1
 
 _label_c1a9:

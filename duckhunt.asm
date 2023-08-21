@@ -253,8 +253,10 @@ _var_05ef = $05EF
 _var_05f0_indexed = $05F0
 _var_05fc = $05FC
 _var_05fd = $05FD
+
 SELECTEDGAMEMODE = $05FE
-_var_05ff = $05FF
+MENUACTION = $05FF
+
 _var_0610 = $0610
 _var_0612 = $0612
 _var_64fa_indexed = $64FA
@@ -461,7 +463,7 @@ _label_c123:
 
 _label_c14e:
   lda #$00                       ; $C14E  A9 00
-  sta a:_var_05ff                ; $C150  8D FF 05
+  sta a:MENUACTION                ; $C150  8D FF 05 - load 0x0 to MENUACTION, which means doing nothing, sit on idle
   lda #$01                       ; $C153  A9 01
   sta z:_var_00b9                ; $C155  85 B9
   sta z:_var_00ba                ; $C157  85 BA
@@ -469,17 +471,17 @@ _label_c14e:
   beq _label_c18d                ; $C15B  F0 30
   jsr _func_d131                 ; $C15D  20 31 D1
   jsr _func_d160                 ; $C160  20 60 D1
-  lda a:_var_05ff                ; $C163  AD FF 05
-  cmp #$01                       ; $C166  C9 01
-  beq _label_c176                ; $C168  F0 0C
-  cmp #$02                       ; $C16A  C9 02
-  beq CycleGameMode                ; $C16C  F0 2B
+  lda a:MENUACTION                ; $C163  AD FF 05
+  cmp #$01                       ; $C166  C9 01 - if MENUACTION is set to 0x1
+  beq STARTGAME                ; $C168  F0 0C - it means Start has been pressed, go into the game
+  cmp #$02                       ; $C16A  C9 02 - if MENUACTION is set to 0x2
+  beq CycleGameMode                ; $C16C  F0 2B - cycle to the next gamemode
   lda z:_var_0016_indexed        ; $C16E  A5 16
   and #$30                       ; $C170  29 30
   cmp #$10                       ; $C172  C9 10
   bne _label_c189                ; $C174  D0 13
 
-_label_c176:
+STARTGAME:
   lda #$00                       ; $C176  A9 00
   sta z:_var_0024                ; $C178  85 24
   sta z:_var_0025                ; $C17A  85 25
@@ -3288,7 +3290,7 @@ _label_d222:
   lda #$01                       ; $D233  A9 01
 
 _label_d235:
-  sta a:_var_05ff                ; $D235  8D FF 05
+  sta a:MENUACTION                ; $D235  8D FF 05
   lda #$01                       ; $D238  A9 01
   sta z:_var_0023                ; $D23A  85 23
   lda #$00                       ; $D23C  A9 00

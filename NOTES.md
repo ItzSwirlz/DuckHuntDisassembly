@@ -1,5 +1,7 @@
 This keeps notes of things - soon nesgodisasm will hopefully have a way to automatically rename the variables when disassembling so we don't have to keep finding/replacing what we know
 
+This information is also built atop of [an existing RAM map](https://datacrystal.romhacking.net/wiki/Duck_Hunt:RAM_map). This is primarily *new* knowledge/mysteries that I've had while working through this.
+
 # Needs naming/confirmation
 DOGANIMATION = $00BD ; In single duck mode, the game sets this to 0x1 in between the time the duck dies, in between to when the next duck is flying. Probably used as a pause variable. Oddly enough, if set to 0x01 all the time in a cheat, the dog always catches; even if you do NOTHING. But, the game does not count the duck as actually *caught*, even if you hit it. Vice-versa for 0x0 - even if you shoot the duck, the dog will think you missed it. Setting to 0xFF, the dog thinks you caught both ducks (yes, both ducks, even in 1-duck mode.) So I don't know what to name this - but it definitely determines what the dog does.
 

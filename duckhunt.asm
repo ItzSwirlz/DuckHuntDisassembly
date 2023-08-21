@@ -49,7 +49,7 @@ _var_0001 = $0001
 _var_0002_indexed = $0002
 _var_0003 = $0003
 _var_0004 = $0004
-_var_0005 = $0005
+Submode = $0005
 _var_0006 = $0006
 _var_0007 = $0007
 _var_0008 = $0008
@@ -79,12 +79,12 @@ _var_0023 = $0023
 _var_0024 = $0024
 _var_0025 = $0025
 _var_0026 = $0026
-_var_0027 = $0027
+WhiteBox = $0027
 _var_0028 = $0028
 _var_0029 = $0029
 _var_002a_indexed = $002A
 _var_002b_indexed = $002B
-_var_002d = $002D
+TitleScreenSongCountdown = $002D
 _var_002f = $002F
 _var_0030_indexed = $0030
 _var_0031 = $0031
@@ -97,9 +97,11 @@ _var_0037 = $0037
 _var_0038 = $0038
 _var_0039 = $0039
 _var_003a = $003A
-_var_003b = $003B
+
+DuckNumber = $003B
 _var_003c = $003C
-_var_003f = $003F
+DuckColor = $003F
+
 _var_0040_indexed = $0040
 _var_0041_indexed = $0041
 _var_0042_indexed = $0042
@@ -110,7 +112,7 @@ _var_0046 = $0046
 _var_0047 = $0047
 _var_0048 = $0048
 _var_0049 = $0049
-_var_004a = $004A
+DuckDirection = $004A
 _var_004b = $004B
 _var_004c = $004C
 _var_004d = $004D
@@ -143,14 +145,14 @@ _var_009b = $009B
 _var_009c = $009C
 _var_009d = $009D
 _var_009e = $009E
-_var_009f = $009F
+TargetDeactivationCountdown = $009F
 _var_00a1 = $00A1
 _var_00a2 = $00A2
 _var_00a6 = $00A6
 _var_00a7 = $00A7
 _var_00a8 = $00A8
 _var_00a9 = $00A9
-_var_00aa = $00AA
+CurrentNumberTargets = $00AA
 _var_00ab = $00AB
 _var_00ad = $00AD
 _var_00ae = $00AE
@@ -165,17 +167,21 @@ _var_00b6 = $00B6
 _var_00b7 = $00B7
 _var_00b8 = $00B8
 _var_00b9 = $00B9
-_var_00ba = $00BA
+RemainingShots = $00BA
 _var_00bb = $00BB
 _var_00bc = $00BC
 _var_00bd = $00BD
 _var_00be = $00BE
-_var_00c1 = $00C1
+LevelNumber = $00C1
 _var_00c2 = $00C2
 _var_00c3_indexed = $00C3
+
+; Score
+; Actual size is 3 bytes - technically one var, $00C4
 ScoreA = $00C4
 ScoreB = $00C5
 ScoreC = $00C6
+
 _var_00c7_indexed = $00C7
 _var_00c8_indexed = $00C8
 _var_00c9_indexed = $00C9
@@ -216,6 +222,11 @@ _var_00fc_indexed = $00FC
 _var_00fd = $00FD
 _var_00fe_indexed = $00FE
 _var_00ff = $00FF
+
+; Start of Sprite data (size 100)
+; more info: https://datacrystal.romhacking.net/wiki/Duck_Hunt:RAM_map
+; prite data: [X, Type, Color, Y], ... 
+; looks like the cdl hasn't gotten all these yet..
 _var_0200_indexed = $0200
 _var_02f0_indexed = $02F0
 _var_02f1_indexed = $02F1
@@ -225,10 +236,20 @@ _var_02f4_indexed = $02F4
 _var_02f5_indexed = $02F5
 _var_02f6_indexed = $02F6
 _var_02f7_indexed = $02F7
-_var_0300_indexed = $0300
-_var_0301_indexed = $0301
-_var_0302_indexed = $0302
-_var_0303_indexed = $0303
+
+; Targets
+TargetOneType = $0300
+TargetOneState = $0301
+TargetOneYCoordinate = $0302
+TargetOneXCoordinate = $0303
+TargetOneHorizontalDirection = $0304 ; might not be real, see below
+TargetOneWingFrame = $0305 ; might not be real, see below
+
+;; FIXME: In the RAM map, we have targets 1 - 4. However, we only have 1 and 2 (the Arcade vs. has 3 and 4)
+;; But what is Target 3 in the vs., some of those values (like 03A0) is probably Target 2. So this needs to be
+;; figured out
+;; A lo
+
 _var_030a_indexed = $030A
 _var_030b_indexed = $030B
 _var_0350 = $0350
@@ -246,10 +267,14 @@ _var_0501_indexed = $0501
 _var_0502 = $0502
 _var_0560 = $0560
 _var_0561_indexed = $0561
-_var_05ec = $05EC
-_var_05ed = $05ED
-_var_05ee = $05EE
-_var_05ef = $05EF
+
+; RNG Seed
+; actual size is 4 bytes - technically one var, $05Ec
+RNGSeed1 = $05EC
+RNGSeed2 = $05ED
+RNGSeed3 = $05EE
+RNGSeed4 = $05EF
+
 _var_05f0_indexed = $05F0
 _var_05fc = $05FC
 _var_05fd = $05FD
@@ -276,7 +301,7 @@ _label_c002:
   stx PPU_MASK                   ; $C00C  8E 01 20
   dex                            ; $C00F  CA
   txs                            ; $C010  9A
-  ldx a:_var_05ec                ; $C011  AE EC 05
+  ldx a:RNGSeed1                ; $C011  AE EC 05
   ldy #$06                       ; $C014  A0 06
   sty z:_var_0001                ; $C016  84 01
   ldy #$00                       ; $C018  A0 00
@@ -294,7 +319,7 @@ _label_c01e:
   ldx #$5F                       ; $C02A  A2 5F
 
 _label_c02c:
-  stx a:_var_05ec                ; $C02C  8E EC 05
+  stx a:RNGSeed1                ; $C02C  8E EC 05
   jsr _func_c22b                 ; $C02F  20 2B C2
   jsr _func_c23b                 ; $C032  20 3B C2
   ldy #$00                       ; $C035  A0 00
@@ -466,7 +491,7 @@ _label_c14e:
   sta a:MenuAction                ; $C150  8D FF 05 - load 0x0 to MenuAction, which means doing nothing, sit on idle
   lda #$01                       ; $C153  A9 01
   sta z:_var_00b9                ; $C155  85 B9
-  sta z:_var_00ba                ; $C157  85 BA
+  sta z:RemainingShots                ; $C157  85 BA
   lda z:_var_0026                ; $C159  A5 26
   beq _label_c18d                ; $C15B  F0 30
   jsr _func_d131                 ; $C15D  20 31 D1
@@ -489,7 +514,7 @@ StartGame:
   jsr _func_c5e1                 ; $C17F  20 E1 C5
   lda #$02                       ; $C182  A9 02
   sta z:_var_002a_indexed        ; $C184  85 2A
-  sta z:_var_002d                ; $C186  85 2D
+  sta z:TitleScreenSongCountdown                ; $C186  85 2D
   rts                            ; $C188  60
 
 _label_c189:
@@ -528,7 +553,7 @@ _label_c1b2:
 
 _label_c1b7:
   lda #$FF                       ; $C1B7  A9 FF
-  sta z:_var_002d                ; $C1B9  85 2D
+  sta z:TitleScreenSongCountdown                ; $C1B9  85 2D
 
 _label_c1bb:
   cpx #$01                       ; $C1BB  E0 01
@@ -585,11 +610,11 @@ _label_c20b:
   jsr _func_c71d                 ; $C214  20 1D C7
 
 _label_c217:
-  lda z:_var_002d                ; $C217  A5 2D
+  lda z:TitleScreenSongCountdown                ; $C217  A5 2D
   bne _label_c222                ; $C219  D0 07
   jsr _func_d509                 ; $C21B  20 09 D5
   lda #$FF                       ; $C21E  A9 FF
-  sta z:_var_002d                ; $C220  85 2D
+  sta z:TitleScreenSongCountdown                ; $C220  85 2D
 
 _label_c222:
   lda z:_var_0026                ; $C222  A5 26
@@ -645,10 +670,10 @@ _label_c262:
   rts                            ; $C262  60
 
 _func_c263:
-  ldy z:_var_0027                ; $C263  A4 27
+  ldy z:WhiteBox                ; $C263  A4 27
   beq _label_c262                ; $C265  F0 FB
   ldy #$00                       ; $C267  A0 00
-  sty z:_var_0027                ; $C269  84 27
+  sty z:WhiteBox                ; $C269  84 27
   lda #$00                       ; $C26B  A9 00
   ldx #$04                       ; $C26D  A2 04
   bne _label_c25b                ; $C26F  D0 EA
@@ -901,7 +926,7 @@ _label_c3ce:
   ldy #$00                       ; $C3D2  A0 00
   lda (_var_0002_indexed),Y      ; $C3D4  B1 02
   and #$0F                       ; $C3D6  29 0F
-  sta z:_var_0005                ; $C3D8  85 05
+  sta z:Submode                ; $C3D8  85 05
   lda (_var_0002_indexed),Y      ; $C3DA  B1 02
   lsr a                          ; $C3DC  4A
   lsr a                          ; $C3DD  4A
@@ -917,7 +942,7 @@ _label_c3e5:
   lda z:_var_0000_indexed        ; $C3ED  A5 00
   sta a:_var_0561_indexed,X      ; $C3EF  9D 61 05
   jsr _func_c426                 ; $C3F2  20 26 C4
-  lda z:_var_0005                ; $C3F5  A5 05
+  lda z:Submode                ; $C3F5  A5 05
   sta z:_var_0006                ; $C3F7  85 06
   sta a:_var_0561_indexed,X      ; $C3F9  9D 61 05
 
@@ -983,7 +1008,7 @@ _label_c447:
   sta z:ScoreB,X      ; $C45C  95 C5
   lda z:ScoreA,X      ; $C45E  B5 C4
   sta z:_var_0003                ; $C460  85 03
-  lda z:_var_0005                ; $C462  A5 05
+  lda z:Submode                ; $C462  A5 05
   jsr _func_c4bf                 ; $C464  20 BF C4
   sta z:ScoreA,X      ; $C467  95 C4
   rts                            ; $C469  60
@@ -1006,7 +1031,7 @@ _label_c46e:
   sta z:ScoreB,X      ; $C483  95 C5
   lda z:ScoreA,X      ; $C485  B5 C4
   sta z:_var_0003                ; $C487  85 03
-  lda z:_var_0005                ; $C489  A5 05
+  lda z:Submode                ; $C489  A5 05
   jsr _func_c4e0                 ; $C48B  20 E0 C4
   sta z:ScoreA,X      ; $C48E  95 C4
   lda z:ScoreA,X      ; $C490  B5 C4
@@ -1184,10 +1209,10 @@ _label_c585:
   bcc _label_c55a                ; $C586  90 D2
 
 _func_c588:
-  lda a:_var_05ec                ; $C588  AD EC 05
+  lda a:RNGSeed1                ; $C588  AD EC 05
   and #$02                       ; $C58B  29 02
   sta z:_var_0007                ; $C58D  85 07
-  lda a:_var_05ed                ; $C58F  AD ED 05
+  lda a:RNGSeed2                ; $C58F  AD ED 05
   and #$02                       ; $C592  29 02
   eor z:_var_0007                ; $C594  45 07
   clc                            ; $C596  18
@@ -1195,11 +1220,11 @@ _func_c588:
   sec                            ; $C599  38
 
 _label_c59a:
-  ror a:_var_05ec                ; $C59A  6E EC 05
-  ror a:_var_05ed                ; $C59D  6E ED 05
-  ror a:_var_05ee                ; $C5A0  6E EE 05
-  ror a:_var_05ef                ; $C5A3  6E EF 05
-  lda a:_var_05ec                ; $C5A6  AD EC 05
+  ror a:RNGSeed1                ; $C59A  6E EC 05
+  ror a:RNGSeed2                ; $C59D  6E ED 05
+  ror a:RNGSeed3                ; $C5A0  6E EE 05
+  ror a:RNGSeed4                ; $C5A3  6E EF 05
+  lda a:RNGSeed1                ; $C5A6  AD EC 05
   rts                            ; $C5A9  60
 
 _label_c5aa:
@@ -1254,7 +1279,7 @@ _func_c5f7:
   ldx #$00                       ; $C5F9  A2 00
 
 _label_c5fb:
-  lda a:_var_0300_indexed,Y      ; $C5FB  B9 00 03
+  lda a:TargetOneType,Y      ; $C5FB  B9 00 03
   sta z:_var_0030_indexed,X      ; $C5FE  95 30
   iny                            ; $C600  C8
   inx                            ; $C601  E8
@@ -1268,7 +1293,7 @@ _func_c607:
 
 _label_c60b:
   lda z:_var_0030_indexed,X      ; $C60B  B5 30
-  sta a:_var_0300_indexed,Y      ; $C60D  99 00 03
+  sta a:TargetOneType,Y      ; $C60D  99 00 03
   iny                            ; $C610  C8
   inx                            ; $C611  E8
   cpx #$50                       ; $C612  E0 50
@@ -1287,7 +1312,7 @@ _func_c61e:
   rts                            ; $C624  60
 
 _label_c625:
-  lda z:_var_002d                ; $C625  A5 2D
+  lda z:TitleScreenSongCountdown                ; $C625  A5 2D
   bne _label_c62d                ; $C627  D0 04
   lda z:_var_001e                ; $C629  A5 1E
   sta z:_var_0025                ; $C62B  85 25
@@ -1297,7 +1322,7 @@ _label_c62d:
 
 _func_c62e:
   stx z:_var_001e                ; $C62E  86 1E
-  sta z:_var_002d                ; $C630  85 2D
+  sta z:TitleScreenSongCountdown                ; $C630  85 2D
   lda #$12                       ; $C632  A9 12
   sta z:_var_0025                ; $C634  85 25
   rts                            ; $C636  60
@@ -1307,7 +1332,7 @@ _label_c637:
   tya                            ; $C639  98
 
 _label_c63a:
-  sta a:_var_0300_indexed,Y      ; $C63A  99 00 03
+  sta a:TargetOneType,Y      ; $C63A  99 00 03
   iny                            ; $C63D  C8
   bne _label_c63a                ; $C63E  D0 FA
   rts                            ; $C640  60
@@ -1445,7 +1470,7 @@ _func_c6f5:
   beq _label_c694                ; $C6F7  F0 9B
   lda #$00                       ; $C6F9  A9 00
   sta z:_var_00be                ; $C6FB  85 BE
-  ldx z:_var_00ba                ; $C6FD  A6 BA
+  ldx z:RemainingShots                ; $C6FD  A6 BA
   ldy #$00                       ; $C6FF  A0 00
 
 _label_c701:
@@ -1478,7 +1503,7 @@ _func_c71d:
   jmp _label_c3ce                ; $C729  4C CE C3
 
 _label_c72c:
-  lda z:_var_002d                ; $C72C  A5 2D
+  lda z:TitleScreenSongCountdown                ; $C72C  A5 2D
   beq _label_c73a                ; $C72E  F0 0A
   lda z:_var_001f                ; $C730  A5 1F
   cmp #$02                       ; $C732  C9 02
@@ -1540,7 +1565,7 @@ _label_c779:
   lda #$07                       ; $C78A  A9 07
   sta z:_var_0025                ; $C78C  85 25
   lda #$15                       ; $C78E  A9 15
-  sta z:_var_002d                ; $C790  85 2D
+  sta z:TitleScreenSongCountdown                ; $C790  85 2D
   rts                            ; $C792  60
 
 _func_c793:
@@ -1567,12 +1592,12 @@ _label_c7a1:
   jmp _func_c71d                 ; $C7B0  4C 1D C7
 
 _func_c7b3:
-  lda z:_var_00c1                ; $C7B3  A5 C1
+  lda z:LevelNumber                ; $C7B3  A5 C1
   sta z:_var_0003                ; $C7B5  85 03
   lda #$01                       ; $C7B7  A9 01
   clc                            ; $C7B9  18
   jsr _func_c4bf                 ; $C7BA  20 BF C4
-  sta z:_var_00c1                ; $C7BD  85 C1
+  sta z:LevelNumber                ; $C7BD  85 C1
   lda #$12                       ; $C7BF  A9 12
   sta a:_var_0500_indexed        ; $C7C1  8D 00 05
   ldx #$DD                       ; $C7C4  A2 DD
@@ -1584,7 +1609,7 @@ _func_c7b3:
 _label_c7ce:
   stx a:_var_0502                ; $C7CE  8E 02 05
   ldx #$00                       ; $C7D1  A2 00
-  lda z:_var_00c1                ; $C7D3  A5 C1
+  lda z:LevelNumber                ; $C7D3  A5 C1
   and #$F0                       ; $C7D5  29 F0
   beq _label_c7e1                ; $C7D7  F0 08
   lsr a                          ; $C7D9  4A
@@ -1595,7 +1620,7 @@ _label_c7ce:
   inx                            ; $C7E0  E8
 
 _label_c7e1:
-  lda z:_var_00c1                ; $C7E1  A5 C1
+  lda z:LevelNumber                ; $C7E1  A5 C1
   and #$0F                       ; $C7E3  29 0F
   sta a:_var_0501_indexed,X      ; $C7E5  9D 01 05
   ldx #$05                       ; $C7E8  A2 05
@@ -1697,7 +1722,7 @@ _label_c86e:
   rts                            ; $C88F  60
 
 _func_c890:
-  lda a:_var_0300_indexed        ; $C890  AD 00 03
+  lda a:TargetOneType        ; $C890  AD 00 03
   beq _label_c8a2                ; $C893  F0 0D
   ldy #$00                       ; $C895  A0 00
   sty z:_var_00a1                ; $C897  84 A1
@@ -1717,19 +1742,19 @@ _label_c8a2:
 _label_c8b4:
   lda z:_var_00b9                ; $C8B4  A5 B9
   beq _label_c901                ; $C8B6  F0 49
-  ldy z:_var_009f                ; $C8B8  A4 9F
+  ldy z:TargetDeactivationCountdown                ; $C8B8  A4 9F
   bne _label_c8c4                ; $C8BA  D0 08
   ldy #$41                       ; $C8BC  A0 41
-  lda z:_var_00ba                ; $C8BE  A5 BA
+  lda z:RemainingShots                ; $C8BE  A5 BA
   bne _label_c8c4                ; $C8C0  D0 02
   ldy #$15                       ; $C8C2  A0 15
 
 _label_c8c4:
   dey                            ; $C8C4  88
-  sty z:_var_009f                ; $C8C5  84 9F
+  sty z:TargetDeactivationCountdown                ; $C8C5  84 9F
   lda z:_var_00bc                ; $C8C7  A5 BC
   bne _label_c8fb                ; $C8C9  D0 30
-  lda a:_var_0301_indexed        ; $C8CB  AD 01 03
+  lda a:TargetOneState        ; $C8CB  AD 01 03
   bne _label_c901                ; $C8CE  D0 31
   lda a:_var_0351                ; $C8D0  AD 51 03
   bne _label_c901                ; $C8D3  D0 2C
@@ -1862,8 +1887,8 @@ _label_c992:
   lsr a                          ; $C995  4A
 
 _label_c996:
-  sta z:_var_003f                ; $C996  85 3F
-  ldx z:_var_00c1                ; $C998  A6 C1
+  sta z:DuckColor                ; $C996  85 3F
+  ldx z:LevelNumber                ; $C998  A6 C1
   lda z:_var_001f                ; $C99A  A5 1F
   bne _label_c9b9                ; $C99C  D0 1B
   lda #$0B                       ; $C99E  A9 0B
@@ -1885,7 +1910,7 @@ _label_c9b2:
 
 _label_c9b9:
   lda #$1B                       ; $C9B9  A9 1B
-  ldx z:_var_00c1                ; $C9BB  A6 C1
+  ldx z:LevelNumber                ; $C9BB  A6 C1
   cpx #$10                       ; $C9BD  E0 10
   bcs _label_c9c9                ; $C9BF  B0 08
   dex                            ; $C9C1  CA
@@ -1897,13 +1922,13 @@ _label_c9b9:
 
 _label_c9c9:
   clc                            ; $C9C9  18
-  adc z:_var_003f                ; $C9CA  65 3F
+  adc z:DuckColor                ; $C9CA  65 3F
   tax                            ; $C9CC  AA
   lda a:_data_e73c_indexed,X     ; $C9CD  BD 3C E7
 
 _label_c9d0:
   sta z:_var_005e                ; $C9D0  85 5E
-  ldx z:_var_00c1                ; $C9D2  A6 C1
+  ldx z:LevelNumber                ; $C9D2  A6 C1
   lda #$0B                       ; $C9D4  A9 0B
   cpx #$27                       ; $C9D6  E0 27
   bcs _label_c9e2                ; $C9D8  B0 08
@@ -1924,7 +1949,7 @@ _label_c9e2:
   sta z:_var_00ae                ; $C9F2  85 AE
   lda z:_var_001f                ; $C9F4  A5 1F
   bne _label_ca0e                ; $C9F6  D0 16
-  ldx z:_var_00c1                ; $C9F8  A6 C1
+  ldx z:LevelNumber                ; $C9F8  A6 C1
   lda #$7D                       ; $C9FA  A9 7D
   cpx #$11                       ; $C9FC  E0 11
   bcc _label_ca08                ; $C9FE  90 08
@@ -1941,7 +1966,7 @@ _label_ca08:
 _label_ca0e:
   inc z:_var_00bb                ; $CA0E  E6 BB
   lda z:_var_00bb                ; $CA10  A5 BB
-  sta z:_var_003b                ; $CA12  85 3B
+  sta z:DuckNumber                ; $CA12  85 3B
   dec z:_var_00bc                ; $CA14  C6 BC
   inc z:_var_0031                ; $CA16  E6 31
   rts                            ; $CA18  60
@@ -1953,12 +1978,12 @@ _label_ca19:
   jsr _func_d4ee                 ; $CA1F  20 EE D4
 
 _label_ca22:
-  lda z:_var_009f                ; $CA22  A5 9F
+  lda z:TargetDeactivationCountdown                ; $CA22  A5 9F
   bne _label_ca29                ; $CA24  D0 03
   jsr _func_d52c                 ; $CA26  20 2C D5
 
 _label_ca29:
-  lda z:_var_00ba                ; $CA29  A5 BA
+  lda z:RemainingShots                ; $CA29  A5 BA
   bne _label_ca3e                ; $CA2B  D0 11
   lda z:_var_004e                ; $CA2D  A5 4E
   bne _label_ca3e                ; $CA2F  D0 0D
@@ -1989,7 +2014,7 @@ _label_ca53:
   ldx #$01                       ; $CA53  A2 01
   lda z:_var_004c                ; $CA55  A5 4C
   beq _label_ca70                ; $CA57  F0 17
-  lda z:_var_00ba                ; $CA59  A5 BA
+  lda z:RemainingShots                ; $CA59  A5 BA
   bne _label_ca66                ; $CA5B  D0 09
   sta z:_var_004c                ; $CA5D  85 4C
 
@@ -2196,7 +2221,7 @@ _label_cb77:
   tax                            ; $CB79  AA
   lda a:_data_e64b_indexed,X     ; $CB7A  BD 4B E6
   sta z:_var_0049                ; $CB7D  85 49
-  sta z:_var_004a                ; $CB7F  85 4A
+  sta z:DuckDirection                ; $CB7F  85 4A
   lda #$00                       ; $CB81  A9 00
   sta z:_var_0034                ; $CB83  85 34
   lda z:_var_0048                ; $CB85  A5 48
@@ -2265,7 +2290,7 @@ _label_cbd9:
   iny                            ; $CBDC  C8
   cmp #$AA                       ; $CBDD  C9 AA
   bne _label_cbe6                ; $CBDF  D0 05
-  ldy z:_var_004a                ; $CBE1  A4 4A
+  ldy z:DuckDirection                ; $CBE1  A4 4A
   jmp _label_cbd9                ; $CBE3  4C D9 CB
 
 _label_cbe6:
@@ -2309,7 +2334,7 @@ _label_cc16:
   jmp _func_ce4d                 ; $CC1C  4C 4D CE
 
 _label_cc1f:
-  ldx z:_var_003b                ; $CC1F  A6 3B
+  ldx z:DuckNumber                ; $CC1F  A6 3B
   lda #$01                       ; $CC21  A9 01
   sta a:_var_03ef_indexed,X      ; $CC23  9D EF 03
   lda #$01                       ; $CC26  A9 01
@@ -2358,7 +2383,7 @@ _label_cc64:
   stx z:_var_0048                ; $CC6D  86 48
   lda a:_data_e64b_indexed,X     ; $CC6F  BD 4B E6
   sta z:_var_0049                ; $CC72  85 49
-  sta z:_var_004a                ; $CC74  85 4A
+  sta z:DuckDirection                ; $CC74  85 4A
   ldx #$18                       ; $CC76  A2 18
   ldy #$E7                       ; $CC78  A0 E7
   bne _label_cc37                ; $CC7A  D0 BB
@@ -2426,7 +2451,7 @@ _label_ccd6:
   dex                            ; $CCDB  CA
   bpl _label_ccd6                ; $CCDC  10 F8
   lda #$03                       ; $CCDE  A9 03
-  sta z:_var_00ba                ; $CCE0  85 BA
+  sta z:RemainingShots                ; $CCE0  85 BA
   lda #$01                       ; $CCE2  A9 01
   sta z:_var_00be                ; $CCE4  85 BE
   sta z:_var_00ad                ; $CCE6  85 AD
@@ -2440,7 +2465,7 @@ _label_ccd6:
   rts                            ; $CCF6  60
 
 _label_ccf7:
-  lda z:_var_00c1                ; $CCF7  A5 C1
+  lda z:LevelNumber                ; $CCF7  A5 C1
   ldy #$18                       ; $CCF9  A0 18
   ldx #$00                       ; $CCFB  A2 00
   cmp #$01                       ; $CCFD  C9 01
@@ -2550,7 +2575,7 @@ _label_cd9a:
   lda #$01                       ; $CD9E  A9 01
   sta z:_var_00b9                ; $CDA0  85 B9
   lda #$03                       ; $CDA2  A9 03
-  sta z:_var_00ba                ; $CDA4  85 BA
+  sta z:RemainingShots                ; $CDA4  85 BA
   lda #$01                       ; $CDA6  A9 01
   sta z:_var_00be                ; $CDA8  85 BE
   lda #$00                       ; $CDAA  A9 00
@@ -2567,12 +2592,12 @@ _label_cdba:
   sty a:_var_0350                ; $CDBC  8C 50 03
   sty a:_var_0351                ; $CDBF  8C 51 03
   lda #$01                       ; $CDC2  A9 01
-  sta a:_var_0300_indexed        ; $CDC4  8D 00 03
-  sta a:_var_0301_indexed        ; $CDC7  8D 01 03
+  sta a:TargetOneType        ; $CDC4  8D 00 03
+  sta a:TargetOneState        ; $CDC7  8D 01 03
   jsr _func_c588                 ; $CDCA  20 88 C5
   sta z:_var_000c                ; $CDCD  85 0C
   lda #$03                       ; $CDCF  A9 03
-  ldy z:_var_00c1                ; $CDD1  A4 C1
+  ldy z:LevelNumber                ; $CDD1  A4 C1
   cpy #$01                       ; $CDD3  C0 01
   beq _label_cdd9                ; $CDD5  F0 02
   lda #$07                       ; $CDD7  A9 07
@@ -2603,7 +2628,7 @@ _label_cdd9:
   lda #$00                       ; $CE06  A9 00
   sta a:$0413                    ; $CE08  8D 13 04
   lda #$01                       ; $CE0B  A9 01
-  sta z:_var_0027                ; $CE0D  85 27
+  sta z:WhiteBox                ; $CE0D  85 27
   lda #$12                       ; $CE0F  A9 12
   sta z:_var_0031                ; $CE11  85 31
   lda #$00                       ; $CE13  A9 00
@@ -2831,7 +2856,7 @@ _label_cf49:
   rts                            ; $CF55  60
 
 _func_cf56:
-  lda z:_var_00c1                ; $CF56  A5 C1
+  lda z:LevelNumber                ; $CF56  A5 C1
   ldy #$02                       ; $CF58  A0 02
   cmp #$06                       ; $CF5A  C9 06
   bcc _label_cf7f                ; $CF5C  90 21
@@ -2842,7 +2867,7 @@ _func_cf56:
   bne _label_cf7f                ; $CF66  D0 17
 
 _func_cf68:
-  ldx z:_var_00c1                ; $CF68  A6 C1
+  ldx z:LevelNumber                ; $CF68  A6 C1
   lda #$00                       ; $CF6A  A9 00
   cpx #$06                       ; $CF6C  E0 06
   bcc _label_cf78                ; $CF6E  90 08
@@ -2853,7 +2878,7 @@ _func_cf68:
 
 _label_cf78:
   clc                            ; $CF78  18
-  adc z:_var_003f                ; $CF79  65 3F
+  adc z:DuckColor                ; $CF79  65 3F
   tax                            ; $CF7B  AA
   ldy a:_data_ebf1_indexed,X     ; $CF7C  BC F1 EB
 
@@ -2863,7 +2888,7 @@ _label_cf7f:
   sta z:_var_0006                ; $CF84  85 06
   lda #$00                       ; $CF86  A9 00
   sta z:_var_0004                ; $CF88  85 04
-  sta z:_var_0005                ; $CF8A  85 05
+  sta z:Submode                ; $CF8A  85 05
   sta z:_var_0007                ; $CF8C  85 07
   lda #$0F                       ; $CF8E  A9 0F
   jsr _func_c437                 ; $CF90  20 37 C4
@@ -2879,7 +2904,7 @@ _func_cf96:
   lda #$06                       ; $CFA3  A9 06
   sta z:_var_0023                ; $CFA5  85 23
   lda #$01                       ; $CFA7  A9 01
-  sta z:_var_0027                ; $CFA9  85 27
+  sta z:WhiteBox                ; $CFA9  85 27
   lda #$36                       ; $CFAB  A9 36
   sta a:BackgroundColor        ; $CFAD  8D 03 04
   sta a:$0407                    ; $CFB0  8D 07 04
@@ -3180,9 +3205,9 @@ _label_d168:
 _label_d169:
   lda z:_var_00b5                ; $D169  A5 B5
   beq _label_d168                ; $D16B  F0 FB
-  lda z:_var_00ba                ; $D16D  A5 BA
+  lda z:RemainingShots                ; $D16D  A5 BA
   beq _label_d164                ; $D16F  F0 F3
-  dec z:_var_00ba                ; $D171  C6 BA
+  dec z:RemainingShots                ; $D171  C6 BA
   lda #$01                       ; $D173  A9 01
   sta z:_var_00be                ; $D175  85 BE
   lda #$00                       ; $D177  A9 00
@@ -3209,9 +3234,9 @@ _label_d19f:
   lda #$00                       ; $D1A3  A9 00
   sta z:_var_00b0                ; $D1A5  85 B0
   ldy #$00                       ; $D1A7  A0 00
-  lda a:_var_0300_indexed        ; $D1A9  AD 00 03
+  lda a:TargetOneType        ; $D1A9  AD 00 03
   beq _label_d1b5                ; $D1AC  F0 07
-  lda a:_var_0301_indexed        ; $D1AE  AD 01 03
+  lda a:TargetOneState        ; $D1AE  AD 01 03
   cmp #$03                       ; $D1B1  C9 03
   beq _label_d1c7                ; $D1B3  F0 12
 
@@ -3251,7 +3276,7 @@ _label_d1e6:
   sty z:_var_0023                ; $D1E8  84 23
   jsr _func_c5d9                 ; $D1EA  20 D9 C5
   ldy #$01                       ; $D1ED  A0 01
-  sty z:_var_0027                ; $D1EF  84 27
+  sty z:WhiteBox                ; $D1EF  84 27
   jmp _label_d26a                ; $D1F1  4C 6A D2
 
 _label_d1f4:
@@ -3299,12 +3324,12 @@ _label_d235:
   jmp _func_c5ee                 ; $D243  4C EE C5
 
 _label_d246:
-  inc z:_var_00aa                ; $D246  E6 AA
+  inc z:CurrentNumberTargets                ; $D246  E6 AA
   inc z:_var_00bd                ; $D248  E6 BD
   ldx #$04                       ; $D24A  A2 04
   lda z:_var_00b0                ; $D24C  A5 B0
   bne _label_d256                ; $D24E  D0 06
-  stx a:_var_0301_indexed        ; $D250  8E 01 03
+  stx a:TargetOneState        ; $D250  8E 01 03
   jmp _label_d259                ; $D253  4C 59 D2
 
 _label_d256:
@@ -3315,7 +3340,7 @@ _label_d259:
   cmp #$02                       ; $D25B  C9 02
   beq _label_d266                ; $D25D  F0 07
   ldy #$01                       ; $D25F  A0 01
-  sty z:_var_0027                ; $D261  84 27
+  sty z:WhiteBox                ; $D261  84 27
   iny                            ; $D263  C8
   bne _label_d268                ; $D264  D0 02
 
@@ -3349,9 +3374,9 @@ _label_d28a:
   bne _label_d235                ; $D290  D0 A3
 
 _func_d292:
-  lda a:_var_0302_indexed,Y      ; $D292  B9 02 03
+  lda a:TargetOneYCoordinate,Y      ; $D292  B9 02 03
   sta z:_var_00b1                ; $D295  85 B1
-  lda a:_var_0303_indexed,Y      ; $D297  B9 03 03
+  lda a:TargetOneXCoordinate,Y      ; $D297  B9 03 03
   sta z:_var_00b2                ; $D29A  85 B2
   lda a:_var_030a_indexed,Y      ; $D29C  B9 0A 03
   sta z:_var_000c                ; $D29F  85 0C
@@ -3373,7 +3398,7 @@ _label_d2b1:
   sta z:_var_00ab                ; $D2B4  85 AB
   lda #$00                       ; $D2B6  A9 00
   sta z:_var_00bb                ; $D2B8  85 BB
-  sta z:_var_00aa                ; $D2BA  85 AA
+  sta z:CurrentNumberTargets                ; $D2BA  85 AA
   lda #$01                       ; $D2BC  A9 01
   sta a:_var_03a0                ; $D2BE  8D A0 03
   sta a:_var_03a1                ; $D2C1  8D A1 03
@@ -3423,7 +3448,7 @@ _label_d2f7:
   jmp _func_c6cc                 ; $D306  4C CC C6
 
 _label_d309:
-  lda z:_var_00aa                ; $D309  A5 AA
+  lda z:CurrentNumberTargets                ; $D309  A5 AA
   cmp z:_var_00ab                ; $D30B  C5 AB
   bcc _label_d32b                ; $D30D  90 1C
   jsr _func_d51d                 ; $D30F  20 1D D5
@@ -3432,7 +3457,7 @@ _label_d309:
   lda #$10                       ; $D316  A9 10
   sta z:_var_002b_indexed        ; $D318  85 2B
   inc z:_var_00a9                ; $D31A  E6 A9
-  lda z:_var_00c1                ; $D31C  A5 C1
+  lda z:LevelNumber                ; $D31C  A5 C1
   and #$0F                       ; $D31E  29 0F
   bne _label_d32a                ; $D320  D0 08
   jsr _func_c23b                 ; $D322  20 3B C2
@@ -3460,11 +3485,11 @@ _label_d33d:
   lda z:_var_00be                ; $D347  A5 BE
   cmp #$0F                       ; $D349  C9 0F
   bne _label_d3ad                ; $D34B  D0 60
-  lda z:_var_00aa                ; $D34D  A5 AA
+  lda z:CurrentNumberTargets                ; $D34D  A5 AA
   cmp #$0A                       ; $D34F  C9 0A
   bne _label_d399                ; $D351  D0 46
   jsr _func_d538                 ; $D353  20 38 D5
-  lda z:_var_00c1                ; $D356  A5 C1
+  lda z:LevelNumber                ; $D356  A5 C1
   ldx #$00                       ; $D358  A2 00
   cmp #$11                       ; $D35A  C9 11
   bcc _label_d369                ; $D35C  90 0B
@@ -3478,7 +3503,7 @@ _label_d33d:
 
 _label_d369:
   lda a:_data_ebe9_indexed,X     ; $D369  BD E9 EB
-  sta z:_var_0005                ; $D36C  85 05
+  sta z:Submode                ; $D36C  85 05
   sta z:_var_000c                ; $D36E  85 0C
   lda a:_data_ebed_indexed,X     ; $D370  BD ED EB
   sta z:_var_0006                ; $D373  85 06
@@ -3545,7 +3570,7 @@ _label_d3d1:
   rts                            ; $D3D1  60
 
 _func_d3d2:
-  lda z:_var_0027                ; $D3D2  A5 27
+  lda z:WhiteBox                ; $D3D2  A5 27
   bne _label_d427                ; $D3D4  D0 51
   inc z:_var_009b                ; $D3D6  E6 9B
   ldy #$00                       ; $D3D8  A0 00
@@ -3553,9 +3578,9 @@ _func_d3d2:
   ldy #$50                       ; $D3DD  A0 50
 
 _func_d3df:
-  lda a:_var_0300_indexed,Y      ; $D3DF  B9 00 03
+  lda a:TargetOneType,Y      ; $D3DF  B9 00 03
   beq _label_d427                ; $D3E2  F0 43
-  lda a:_var_0301_indexed,Y      ; $D3E4  B9 01 03
+  lda a:TargetOneState,Y      ; $D3E4  B9 01 03
   cmp #$03                       ; $D3E7  C9 03
   beq _label_d3fb                ; $D3E9  F0 10
   cmp #$08                       ; $D3EB  C9 08
@@ -3602,12 +3627,12 @@ _label_d427:
 _func_d428:
   lda z:_var_00b9                ; $D428  A5 B9
   beq _label_d427                ; $D42A  F0 FB
-  lda z:_var_00ba                ; $D42C  A5 BA
+  lda z:RemainingShots                ; $D42C  A5 BA
   bne _label_d427                ; $D42E  D0 F7
   lda z:_var_009a                ; $D430  A5 9A
   and #$07                       ; $D432  29 07
   bne _label_d461                ; $D434  D0 2B
-  lda z:_var_0027                ; $D436  A5 27
+  lda z:WhiteBox                ; $D436  A5 27
   bne _label_d427                ; $D438  D0 ED
   lda z:_var_009a                ; $D43A  A5 9A
   and #$08                       ; $D43C  29 08
@@ -3667,7 +3692,7 @@ _label_d485:
   lda z:_var_001b                ; $D490  A5 1B
   cmp #$01                       ; $D492  C9 01
   bne _label_d4ab                ; $D494  D0 15
-  lda z:_var_00c1                ; $D496  A5 C1
+  lda z:LevelNumber                ; $D496  A5 C1
   lsr a                          ; $D498  4A
   lsr a                          ; $D499  4A
   lsr a                          ; $D49A  4A
@@ -3676,7 +3701,7 @@ _label_d485:
   sta a:$0518                    ; $D49E  8D 18 05
 
 _label_d4a1:
-  lda z:_var_00c1                ; $D4A1  A5 C1
+  lda z:LevelNumber                ; $D4A1  A5 C1
   and #$0F                       ; $D4A3  29 0F
   sta a:$0519                    ; $D4A5  8D 19 05
   jmp _label_d4cf                ; $D4A8  4C CF D4
@@ -3846,7 +3871,7 @@ _label_d56a:
   lda #$01                       ; $D57C  A9 01
   sta z:_var_00be                ; $D57E  85 BE
   lda #$03                       ; $D580  A9 03
-  sta z:_var_00ba                ; $D582  85 BA
+  sta z:RemainingShots                ; $D582  85 BA
   jsr _func_c6f5                 ; $D584  20 F5 C6
   jsr _func_c6cc                 ; $D587  20 CC C6
   lda #$06                       ; $D58A  A9 06
@@ -3857,12 +3882,12 @@ _label_d56a:
 
 _label_d593:
   lda #$01                       ; $D593  A9 01
-  sta a:_var_0300_indexed        ; $D595  8D 00 03
+  sta a:TargetOneType        ; $D595  8D 00 03
   sta a:_var_0350                ; $D598  8D 50 03
-  sta a:_var_0301_indexed        ; $D59B  8D 01 03
+  sta a:TargetOneState        ; $D59B  8D 01 03
   sta a:_var_0351                ; $D59E  8D 51 03
   lda #$30                       ; $D5A1  A9 30
-  ldx z:_var_00c1                ; $D5A3  A6 C1
+  ldx z:LevelNumber                ; $D5A3  A6 C1
   cpx #$10                       ; $D5A5  E0 10
   bcs _label_d5ad                ; $D5A7  B0 04
   dex                            ; $D5A9  CA
@@ -3875,7 +3900,7 @@ _label_d5ad:
   lda #$01                       ; $D5B3  A9 01
   sta z:_var_00be                ; $D5B5  85 BE
   lda #$03                       ; $D5B7  A9 03
-  sta z:_var_00ba                ; $D5B9  85 BA
+  sta z:RemainingShots                ; $D5B9  85 BA
   lda #$02                       ; $D5BB  A9 02
   sta z:_var_00bc                ; $D5BD  85 BC
   lda #$00                       ; $D5BF  A9 00
@@ -3903,7 +3928,7 @@ _label_d5d2:
   rts                            ; $D5ED  60
 
 _func_d5ee:
-  lda a:_var_0300_indexed        ; $D5EE  AD 00 03
+  lda a:TargetOneType        ; $D5EE  AD 00 03
   beq _label_d600                ; $D5F1  F0 0D
   ldy #$00                       ; $D5F3  A0 00
   sty z:_var_00a1                ; $D5F5  84 A1
@@ -3923,7 +3948,7 @@ _label_d600:
 _label_d612:
   lda z:_var_00bc                ; $D612  A5 BC
   bne _label_d64b                ; $D614  D0 35
-  ldx a:_var_0301_indexed        ; $D616  AE 01 03
+  ldx a:TargetOneState        ; $D616  AE 01 03
   ldy a:_var_0351                ; $D619  AC 51 03
   cpx #$03                       ; $D61C  E0 03
   beq _label_d627                ; $D61E  F0 07
@@ -4019,7 +4044,7 @@ _label_d697:
   lda a:_data_e969_indexed,X     ; $D6A6  BD 69 E9
   sta z:_var_0043_indexed        ; $D6A9  85 43
   lda a:_data_e96a_indexed,X     ; $D6AB  BD 6A E9
-  sta z:_var_004a                ; $D6AE  85 4A
+  sta z:DuckDirection                ; $D6AE  85 4A
   lda a:_data_e96b_indexed,X     ; $D6B0  BD 6B E9
   sta z:_var_0042_indexed        ; $D6B3  85 42
   lda a:_data_e96c_indexed,X     ; $D6B5  BD 6C E9
@@ -4028,7 +4053,7 @@ _label_d697:
   sta z:_var_004c                ; $D6BD  85 4C
   inc z:_var_00bb                ; $D6BF  E6 BB
   lda z:_var_00bb                ; $D6C1  A5 BB
-  sta z:_var_003b                ; $D6C3  85 3B
+  sta z:DuckNumber                ; $D6C3  85 3B
   dec z:_var_00bc                ; $D6C5  C6 BC
   lda #$FF                       ; $D6C7  A9 FF
   sta z:_var_005f                ; $D6C9  85 5F
@@ -4098,7 +4123,7 @@ _label_d700:
   sec                            ; $D729  38
   sbc #$18                       ; $D72A  E9 18
   sta z:_var_0056                ; $D72C  85 56
-  ldx z:_var_00c1                ; $D72E  A6 C1
+  ldx z:LevelNumber                ; $D72E  A6 C1
   lda #$00                       ; $D730  A9 00
   cpx #$12                       ; $D732  E0 12
   bcc _label_d73e                ; $D734  90 08
@@ -4122,7 +4147,7 @@ _label_d74d:
   rts                            ; $D751  60
 
 _label_d752:
-  ldx z:_var_003b                ; $D752  A6 3B
+  ldx z:DuckNumber                ; $D752  A6 3B
   lda #$01                       ; $D754  A9 01
   sta a:_var_03ef_indexed,X      ; $D756  9D EF 03
   sta z:_var_00ad                ; $D759  85 AD

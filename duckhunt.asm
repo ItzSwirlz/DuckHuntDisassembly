@@ -237,7 +237,7 @@ _var_03a0 = $03A0
 _var_03a1 = $03A1
 _var_03ef_indexed = $03EF
 _var_03f0_indexed = $03F0
-_var_0403_indexed = $0403
+BACKGROUNDCOLOR = $0403
 _var_0430_indexed = $0430
 _var_0440_indexed = $0440
 _var_0442_indexed = $0442
@@ -2821,7 +2821,7 @@ _func_cf44:
 
 _label_cf49:
   lda a:_data_e724_indexed,X     ; $CF49  BD 24 E7
-  sta a:_var_0403_indexed,Y      ; $CF4C  99 03 04
+  sta a:BACKGROUNDCOLOR,Y      ; $CF4C  99 03 04
   inx                            ; $CF4F  E8
   iny                            ; $CF50  C8
   dec z:_var_000d                ; $CF51  C6 0D
@@ -2879,7 +2879,7 @@ _func_cf96:
   lda #$01                       ; $CFA7  A9 01
   sta z:_var_0027                ; $CFA9  85 27
   lda #$36                       ; $CFAB  A9 36
-  sta a:_var_0403_indexed        ; $CFAD  8D 03 04
+  sta a:BACKGROUNDCOLOR        ; $CFAD  8D 03 04
   sta a:$0407                    ; $CFB0  8D 07 04
   sta a:$040B                    ; $CFB3  8D 0B 04
   sta a:$040F                    ; $CFB6  8D 0F 04

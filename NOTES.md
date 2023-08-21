@@ -3,6 +3,36 @@ This keeps notes of things - soon nesgodisasm will hopefully have a way to autom
 # Misc
 SELECTEDGAMEMODE = $05FE ; 0 = a, 1 = b, 2 = c
 
+# Game Phase?? (Unconfirmed, I need to check this)
+PHASE = $0031
+Being set to 01 shows the "ROUND" number
+Being set to 02 shows the dog spawns
+Being set to 03 the dog is walking. Fun fact- it has no "STOP" coordinates, so it will keep walking, then when off screen the pixels just appear on the other side LOL
+Being set to 05 the dog sniffs (yes, really), then will start its jump. If being forced afterwords, then it shows ducks moving around?
+Being set to 06 the dog gets EXCITED, holds out his tounge wide
+Being set to 07 the duck is turning again?
+Being set to 04, 08 does nothing, higher than that causes overflow
+
+# Background/graphics
+BACKGROUNCOLOR = $0403 ; ??? I'm not sure yet, I just know changing this affects the bg color. 0x21 is the default blue, 0x36 is the "FLY AWAY" red.
+
+You can see here how the background color is set to red:
+```asm
+_func_cf96:
+  lda z:_var_00bd                ; $CF96  A5 BD
+  bne _label_cfb9                ; $CF98  D0 1F
+  lda #$06                       ; $CF9A  A9 06
+  jsr _func_d464                 ; $CF9C  20 64 D4
+  lda #$30                       ; $CF9F  A9 30
+  sta z:_var_002b_indexed        ; $CFA1  85 2B
+  lda #$06                       ; $CFA3  A9 06
+  sta z:_var_0023                ; $CFA5  85 23
+  lda #$01                       ; $CFA7  A9 01
+  sta z:_var_0027                ; $CFA9  85 27
+  lda #$36                       ; $CFAB  A9 36 ;; loading 0x36!
+  sta a:BACKGROUNDCOLOR        ; $CFAD  8D 03 04 ;; storing 0x36 to BACKGROUNDCOLOR unless im dumb at reading 6502 asm
+```
+
 # Score
 The score is set by three variables, each representing 2 places in the score. I name them A (first 2), B (middle 2), C (last 2)
 12 | 34 | 56

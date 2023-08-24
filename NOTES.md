@@ -17,6 +17,14 @@ Being set to 06 the dog gets EXCITED, holds out his tounge wide
 Being set to 07 the duck is turning again?
 Being set to 04, 08 does nothing, higher than that causes overflow
 
+## The bottom bar
+I assume, you reading this, you know how it works; it blinks the duck #, if you hit it, its red, otherwise it goes to the next one. Then, in a nerdly satisfying way, it shifts all the ducks you hit to see if its enough to keep the game going.
+
+(TODO: Confirm the starting value)
+I found out $00BB is the number of the duck that is blinking. Interestingly I think it starts at 0x1, which matches in human-readable decimal what duck number is being looked at.
+
+It's not a good name but fo now its CurrentActiveDuckTarget.
+
 # #Background/graphics
 BACKGROUNCOLOR = $0403 ; ??? I'm not sure yet, I just know changing this affects the bg color. 0x21 is the default blue, 0x36 is the "FLY AWAY" red.
 

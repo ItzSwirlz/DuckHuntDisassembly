@@ -166,9 +166,11 @@ _var_00b5 = $00B5
 _var_00b6 = $00B6
 _var_00b7 = $00B7
 _var_00b8 = $00B8
+
 TargetActive = $00B9
 RemainingShots = $00BA
-_var_00bb = $00BB
+CurrentActiveDuckTarget = $00BB
+
 _var_00bc = $00BC
 _var_00bd = $00BD
 _var_00be = $00BE
@@ -1964,8 +1966,8 @@ _label_ca08:
   sta z:_var_00af                ; $CA0C  85 AF
 
 _label_ca0e:
-  inc z:_var_00bb                ; $CA0E  E6 BB
-  lda z:_var_00bb                ; $CA10  A5 BB
+  inc z:CurrentActiveDuckTarget                ; $CA0E  E6 BB
+  lda z:CurrentActiveDuckTarget                ; $CA10  A5 BB
   sta z:DuckNumber                ; $CA12  85 3B
   dec z:_var_00bc                ; $CA14  C6 BC
   inc z:_var_0031                ; $CA16  E6 31
@@ -2636,7 +2638,7 @@ _label_cdd9:
   rts                            ; $CE17  60
 
 _label_ce18:
-  lda z:_var_00bb                ; $CE18  A5 BB
+  lda z:CurrentActiveDuckTarget                ; $CE18  A5 BB
   cmp #$0A                       ; $CE1A  C9 0A
   bne _label_ce29                ; $CE1C  D0 0B
   lda #$00                       ; $CE1E  A9 00
@@ -3397,7 +3399,7 @@ _label_d2b1:
   sty z:_var_00c2                ; $D2B2  84 C2
   sta z:_var_00ab                ; $D2B4  85 AB
   lda #$00                       ; $D2B6  A9 00
-  sta z:_var_00bb                ; $D2B8  85 BB
+  sta z:CurrentActiveDuckTarget                ; $D2B8  85 BB
   sta z:CurrentNumberTargets                ; $D2BA  85 AA
   lda #$01                       ; $D2BC  A9 01
   sta a:_var_03a0                ; $D2BE  8D A0 03
@@ -3964,7 +3966,7 @@ _label_d627:
   jsr _func_d446                 ; $D62F  20 46 D4
   lda #$00                       ; $D632  A9 00
   sta z:TargetActive                ; $D634  85 B9
-  lda z:_var_00bb                ; $D636  A5 BB
+  lda z:CurrentActiveDuckTarget                ; $D636  A5 BB
   cmp #$0A                       ; $D638  C9 0A
   beq _label_d640                ; $D63A  F0 04
   lda #$0A                       ; $D63C  A9 0A
@@ -4051,8 +4053,8 @@ _label_d697:
   sta z:_var_0047                ; $D6B8  85 47
   lda a:_data_e96d_indexed,X     ; $D6BA  BD 6D E9
   sta z:_var_004c                ; $D6BD  85 4C
-  inc z:_var_00bb                ; $D6BF  E6 BB
-  lda z:_var_00bb                ; $D6C1  A5 BB
+  inc z:CurrentActiveDuckTarget                ; $D6BF  E6 BB
+  lda z:CurrentActiveDuckTarget                ; $D6C1  A5 BB
   sta z:DuckNumber                ; $D6C3  85 3B
   dec z:_var_00bc                ; $D6C5  C6 BC
   lda #$FF                       ; $D6C7  A9 FF

@@ -166,7 +166,7 @@ _var_00b5 = $00B5
 _var_00b6 = $00B6
 _var_00b7 = $00B7
 _var_00b8 = $00B8
-_var_00b9 = $00B9
+TargetActive = $00B9
 RemainingShots = $00BA
 _var_00bb = $00BB
 _var_00bc = $00BC
@@ -490,7 +490,7 @@ _label_c14e:
   lda #$00                       ; $C14E  A9 00
   sta a:MenuAction                ; $C150  8D FF 05 - load 0x0 to MenuAction, which means doing nothing, sit on idle
   lda #$01                       ; $C153  A9 01
-  sta z:_var_00b9                ; $C155  85 B9
+  sta z:TargetActive                ; $C155  85 B9
   sta z:RemainingShots                ; $C157  85 BA
   lda z:_var_0026                ; $C159  A5 26
   beq _label_c18d                ; $C15B  F0 30
@@ -1740,7 +1740,7 @@ _label_c8a2:
   jsr _func_c607                 ; $C8B1  20 07 C6
 
 _label_c8b4:
-  lda z:_var_00b9                ; $C8B4  A5 B9
+  lda z:TargetActive                ; $C8B4  A5 B9
   beq _label_c901                ; $C8B6  F0 49
   ldy z:TargetDeactivationCountdown                ; $C8B8  A4 9F
   bne _label_c8c4                ; $C8BA  D0 08
@@ -1775,7 +1775,7 @@ _label_c8e5:
   lda #$40                       ; $C8F0  A9 40
   sta z:_var_002b_indexed        ; $C8F2  85 2B
   lda #$00                       ; $C8F4  A9 00
-  sta z:_var_00b9                ; $C8F6  85 B9
+  sta z:TargetActive                ; $C8F6  85 B9
   jmp _func_d464                 ; $C8F8  4C 64 D4
 
 _label_c8fb:
@@ -1822,7 +1822,7 @@ _label_c931:
   rts                            ; $C931  60
 
 _label_c932:
-  lda z:_var_00b9                ; $C932  A5 B9
+  lda z:TargetActive                ; $C932  A5 B9
   beq _label_c931                ; $C934  F0 FB
   lda z:_var_00a6                ; $C936  A5 A6
   bne _label_c931                ; $C938  D0 F7
@@ -2573,7 +2573,7 @@ _label_cd9a:
   lda #$30                       ; $CD9A  A9 30
   sta z:_var_00a6                ; $CD9C  85 A6
   lda #$01                       ; $CD9E  A9 01
-  sta z:_var_00b9                ; $CDA0  85 B9
+  sta z:TargetActive                ; $CDA0  85 B9
   lda #$03                       ; $CDA2  A9 03
   sta z:RemainingShots                ; $CDA4  85 BA
   lda #$01                       ; $CDA6  A9 01
@@ -3192,7 +3192,7 @@ _label_d153:
   bne _label_d13c                ; $D15E  D0 DC
 
 _func_d160:
-  lda z:_var_00b9                ; $D160  A5 B9
+  lda z:TargetActive                ; $D160  A5 B9
   bne _label_d169                ; $D162  D0 05
 
 _label_d164:
@@ -3625,7 +3625,7 @@ _label_d427:
   rts                            ; $D427  60
 
 _func_d428:
-  lda z:_var_00b9                ; $D428  A5 B9
+  lda z:TargetActive                ; $D428  A5 B9
   beq _label_d427                ; $D42A  F0 FB
   lda z:RemainingShots                ; $D42C  A5 BA
   bne _label_d427                ; $D42E  D0 F7
@@ -3905,7 +3905,7 @@ _label_d5ad:
   sta z:_var_00bc                ; $D5BD  85 BC
   lda #$00                       ; $D5BF  A9 00
   sta z:_var_00b5                ; $D5C1  85 B5
-  sta z:_var_00b9                ; $D5C3  85 B9
+  sta z:TargetActive                ; $D5C3  85 B9
   sta z:_var_00bd                ; $D5C5  85 BD
   jsr _func_c6f5                 ; $D5C7  20 F5 C6
   jsr _func_c6cc                 ; $D5CA  20 CC C6
@@ -3963,7 +3963,7 @@ _label_d627:
   bne _label_d651                ; $D62D  D0 22
   jsr _func_d446                 ; $D62F  20 46 D4
   lda #$00                       ; $D632  A9 00
-  sta z:_var_00b9                ; $D634  85 B9
+  sta z:TargetActive                ; $D634  85 B9
   lda z:_var_00bb                ; $D636  A5 BB
   cmp #$0A                       ; $D638  C9 0A
   beq _label_d640                ; $D63A  F0 04
@@ -4017,7 +4017,7 @@ _label_d678:
   lda z:_var_00a6                ; $D678  A5 A6
   bne _label_d6d4                ; $D67A  D0 58
   lda #$01                       ; $D67C  A9 01
-  sta z:_var_00b9                ; $D67E  85 B9
+  sta z:TargetActive                ; $D67E  85 B9
   jsr _func_c588                 ; $D680  20 88 C5
   and #$3F                       ; $D683  29 3F
   tay                            ; $D685  A8

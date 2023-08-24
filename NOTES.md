@@ -73,6 +73,8 @@ You may notice when the dog is showing it caught the duck you shot, the game wil
 
 With an emulator I can tell $00B9 is 0 when its ignoring shots, 1 when its taking it. This even goes for the main menu - forcing to 0, clicking/using the Zapper does nothing. Setting it to 01 though, if going into the game by it, will make the dog instantly spawn with its "oops" look, but if pausing like, after waiting, the game seems to run normally, but then if you wait for a duck to fly, and set this value to 0, it wont change from the "FLY AWAY" screen. This would make sense to be a value to say if the duck was flying, but with the menu it doesnt add it up.
 
+For now I set TargetActive to $00B9.
+
 # Main Menu
 SELECTEDGAMEMODE = $05FE ; 0 = a, 1 = b, 2 = c
 

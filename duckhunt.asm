@@ -1966,11 +1966,11 @@ _label_ca08:
   sta z:_var_00af                ; $CA0C  85 AF
 
 _label_ca0e:
-  inc z:CurrentActiveDuckTarget                ; $CA0E  E6 BB
-  lda z:CurrentActiveDuckTarget                ; $CA10  A5 BB
-  sta z:DuckNumber                ; $CA12  85 3B
-  dec z:TargetFinishedFalling                ; $CA14  C6 BC
-  inc z:CurrentSpritePhase                ; $CA16  E6 31
+  inc z:CurrentActiveDuckTarget                ; $CA0E  E6 BB - increment the current duck target
+  lda z:CurrentActiveDuckTarget                ; $CA10  A5 BB - store that duck target
+  sta z:DuckNumber                ; $CA12  85 3B - store that to the duck number
+  dec z:TargetFinishedFalling                ; $CA14  C6 BC - mark that the target finished falling to the ground
+  inc z:CurrentSpritePhase                ; $CA16  E6 31 - move up the current sprite phase (TODO: Figure out what it means in this context based on call trees, this can mean the duck has or hasn't finished falling)
   rts                            ; $CA18  60
 
 _label_ca19:

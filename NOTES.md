@@ -96,6 +96,9 @@ With an emulator I can tell $00B9 is 0 when its ignoring shots, 1 when its takin
 
 For now I set TargetActive to $00B9.
 
+## Other oddities
+It looks like if, in the main menu at least, select is pressed, $05FD becomes 0x1 for the time select is being pressed. Maybe it was hard to keep accessing the same thing in JOYPAD1 to get the select button so this is like a typedef/alias of the button. For now 05FD is SelectButtonDown. Same goes respectively for 05FC and the start button.
+
 # Main Menu
 SELECTEDGAMEMODE = $05FE ; 0 = a, 1 = b, 2 = c
 

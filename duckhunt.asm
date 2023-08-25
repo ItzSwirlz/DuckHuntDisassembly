@@ -278,8 +278,9 @@ RNGSeed3 = $05EE
 RNGSeed4 = $05EF
 
 _var_05f0_indexed = $05F0
-_var_05fc = $05FC
-_var_05fd = $05FD
+
+StartButtonDown = $05FC
+SelectButtonDown = $05FD
 
 SelectedGameMode = $05FE
 MenuAction = $05FF
@@ -408,10 +409,10 @@ _label_c0ba:
   lda z:_var_0016_indexed        ; $C0BA  A5 16
   and #$10                       ; $C0BC  29 10
   beq _label_c11e                ; $C0BE  F0 5E
-  ldy a:_var_05fc                ; $C0C0  AC FC 05
+  ldy a:StartButtonDown                ; $C0C0  AC FC 05
   bne _label_c123                ; $C0C3  D0 5E
   iny                            ; $C0C5  C8
-  sty a:_var_05fc                ; $C0C6  8C FC 05
+  sty a:StartButtonDown                ; $C0C6  8C FC 05
   ldy z:_var_0025                ; $C0C9  A4 25
   cpy #$10                       ; $C0CB  C0 10
   beq _label_c0ff                ; $C0CD  F0 30
@@ -462,7 +463,7 @@ _label_c112:
 
 _label_c11e:
   lda #$00                       ; $C11E  A9 00
-  sta a:_var_05fc                ; $C120  8D FC 05
+  sta a:StartButtonDown                ; $C120  8D FC 05
 
 _label_c123:
   lda z:_var_0025                ; $C123  A5 25
@@ -529,7 +530,7 @@ _label_c18d:
 _label_c190:
   cmp #$20                       ; $C190  C9 20
   bne _label_c1a9                ; $C192  D0 15
-  lda a:_var_05fd                ; $C194  AD FD 05
+  lda a:SelectButtonDown                ; $C194  AD FD 05
   bne _label_c1b7                ; $C197  D0 1E
 
 CycleGameMode:
@@ -546,12 +547,12 @@ SetGameMode:
 _label_c1a9:
   cmp #$00                       ; $C1A9  C9 00
   bne _label_c1b2                ; $C1AB  D0 05
-  sta a:_var_05fd                ; $C1AD  8D FD 05
+  sta a:SelectButtonDown                ; $C1AD  8D FD 05
   beq _label_c1bb                ; $C1B0  F0 09
 
 _label_c1b2:
   lda #$01                       ; $C1B2  A9 01
-  sta a:_var_05fd                ; $C1B4  8D FD 05
+  sta a:SelectButtonDown                ; $C1B4  8D FD 05
 
 _label_c1b7:
   lda #$FF                       ; $C1B7  A9 FF
@@ -1246,7 +1247,7 @@ _label_c5aa:
   lda #$01                       ; $C5CB  A9 01
   sta z:_var_0023                ; $C5CD  85 23
   lda #$01                       ; $C5CF  A9 01
-  sta a:_var_05fd                ; $C5D1  8D FD 05
+  sta a:SelectButtonDown                ; $C5D1  8D FD 05
   inc z:_var_0026                ; $C5D4  E6 26
   jmp _func_c5ee                 ; $C5D6  4C EE C5
 

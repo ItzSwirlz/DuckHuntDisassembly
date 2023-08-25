@@ -28,6 +28,8 @@ It looks like the game will not progress past:
 
 if $00BC is set to 0x1. Might be basically some boolean value. Setting it to "TargetFinishedFalling"
 
+When shooting a target, at least for the ducks in single player, $00BD is set to 1 until TargetFinishedFalling is reset.
+
 ## The bottom bar
 I assume, you reading this, you know how it works; it blinks the duck #, if you hit it, its red, otherwise it goes to the next one. Then, in a nerdly satisfying way, it shifts all the ducks you hit to see if its enough to keep the game going.
 

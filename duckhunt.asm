@@ -170,9 +170,9 @@ _var_00b8 = $00B8
 TargetActive = $00B9
 RemainingShots = $00BA
 CurrentActiveDuckTarget = $00BB
-
 TargetFinishedFalling = $00BC
-_var_00bd = $00BD
+TargetShot = $00BD
+
 _var_00be = $00BE
 LevelNumber = $00C1
 _var_00c2 = $00C2
@@ -1764,7 +1764,7 @@ _label_c8c4:
   bne _label_c901                ; $C8D7  D0 28
   lda #$0A                       ; $C8D9  A9 0A
   ldy #$07                       ; $C8DB  A0 07
-  ldx z:_var_00bd                ; $C8DD  A6 BD
+  ldx z:TargetShot                ; $C8DD  A6 BD
   beq _label_c8e5                ; $C8DF  F0 04
   lda #$0C                       ; $C8E1  A9 0C
   ldy #$02                       ; $C8E3  A0 02
@@ -2564,7 +2564,7 @@ _label_cd80:
   jsr _func_cf39                 ; $CD87  20 39 CF
   ldx #$94                       ; $CD8A  A2 94
   ldy #$E8                       ; $CD8C  A0 E8
-  lda z:_var_00bd                ; $CD8E  A5 BD
+  lda z:TargetShot                ; $CD8E  A5 BD
   cmp #$01                       ; $CD90  C9 01
   beq _label_cd44                ; $CD92  F0 B0
   ldx #$A3                       ; $CD94  A2 A3
@@ -2581,7 +2581,7 @@ _label_cd9a:
   lda #$01                       ; $CDA6  A9 01
   sta z:_var_00be                ; $CDA8  85 BE
   lda #$00                       ; $CDAA  A9 00
-  sta z:_var_00bd                ; $CDAC  85 BD
+  sta z:TargetShot                ; $CDAC  85 BD
   lda #$02                       ; $CDAE  A9 02
   ldy #$01                       ; $CDB0  A0 01
   ldx z:_var_001f                ; $CDB2  A6 1F
@@ -2897,7 +2897,7 @@ _label_cf7f:
   jmp _func_c655                 ; $CF93  4C 55 C6
 
 _func_cf96:
-  lda z:_var_00bd                ; $CF96  A5 BD
+  lda z:TargetShot                ; $CF96  A5 BD
   bne _label_cfb9                ; $CF98  D0 1F
   lda #$06                       ; $CF9A  A9 06
   jsr _func_d464                 ; $CF9C  20 64 D4
@@ -3327,7 +3327,7 @@ _label_d235:
 
 _label_d246:
   inc z:CurrentNumberTargets                ; $D246  E6 AA
-  inc z:_var_00bd                ; $D248  E6 BD
+  inc z:TargetShot                ; $D248  E6 BD
   ldx #$04                       ; $D24A  A2 04
   lda z:_var_00b0                ; $D24C  A5 B0
   bne _label_d256                ; $D24E  D0 06
@@ -3908,7 +3908,7 @@ _label_d5ad:
   lda #$00                       ; $D5BF  A9 00
   sta z:_var_00b5                ; $D5C1  85 B5
   sta z:TargetActive                ; $D5C3  85 B9
-  sta z:_var_00bd                ; $D5C5  85 BD
+  sta z:TargetShot                ; $D5C5  85 BD
   jsr _func_c6f5                 ; $D5C7  20 F5 C6
   jsr _func_c6cc                 ; $D5CA  20 CC C6
   lda #$0B                       ; $D5CD  A9 0B
@@ -6032,7 +6032,7 @@ _data_f84d_indexed:
   lax z:_var_00fa_indexed        ; $F882  A7 FA
   brk                            ; $F884  00
   brk                            ; $F885  00
-  slo z:_var_00bd                ; $F886  07 BD
+  slo z:TargetShot                ; $F886  07 BD
   sed                            ; $F888  F8
   brk                            ; $F889  00
   brk                            ; $F88A  00

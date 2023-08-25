@@ -17,6 +17,13 @@ Being set to 06 the dog gets EXCITED, holds out his tounge wide
 Being set to 07 the duck is turning again?
 Being set to 04, 08 does nothing, higher than that causes overflow
 
+## The targets
+It looks like the game will not progress past:
+- if you shoot the duck and it falls
+- if the dog shows it caught the duck
+
+if $00BC is set to 0x1. Might be basically some boolean value. Setting it to "TargetFinishedFalling"
+
 ## The bottom bar
 I assume, you reading this, you know how it works; it blinks the duck #, if you hit it, its red, otherwise it goes to the next one. Then, in a nerdly satisfying way, it shifts all the ducks you hit to see if its enough to keep the game going.
 
@@ -25,7 +32,7 @@ I found out $00BB is the number of the duck that is blinking. Interestingly I th
 
 It's not a good name but fo now its CurrentActiveDuckTarget.
 
-# #Background/graphics
+## Background/graphics
 BACKGROUNCOLOR = $0403 ; ??? I'm not sure yet, I just know changing this affects the bg color. 0x21 is the default blue, 0x36 is the "FLY AWAY" red.
 
 You can see here how the background color is set to red:
@@ -116,3 +123,6 @@ We see $05FF is loaded to 0.. and then it checks if its loaded to 01. So I force
 0x3 or higher: Pressing start will make the screen go gray and back to the main menu, but it doesn't reset.
 
 So I think this is basically a way of telling the menu what to do next, whether to jump into the game or cycle. This isnt controller input, it's probably controller -> variable -> _label_c14e. So I'll name this variable MENUACTION - basically what the menu is doing. 
+
+# Data (Palettes, audio, etc)
+- Palette/PPU/even Sprite color-related data happen to be set at the same location, data $33E5.

@@ -171,7 +171,7 @@ TargetActive = $00B9
 RemainingShots = $00BA
 CurrentActiveDuckTarget = $00BB
 
-_var_00bc = $00BC
+TargetFinishedFalling = $00BC
 _var_00bd = $00BD
 _var_00be = $00BE
 LevelNumber = $00C1
@@ -659,7 +659,7 @@ _func_c249:
   asl a                          ; $C24F  0A
   tay                            ; $C250  A8
   lda a:_data_e532_indexed,Y     ; $C251  B9 32 E5
-  ldx a:_data_e533_indexed,Y     ; $C254  BE 33 E5
+  ldx a:PaletteTable,Y     ; $C254  BE 33 E5
   ldy #$00                       ; $C257  A0 00
   sty z:_var_0023                ; $C259  84 23
 
@@ -1754,7 +1754,7 @@ _label_c8b4:
 _label_c8c4:
   dey                            ; $C8C4  88
   sty z:TargetDeactivationCountdown                ; $C8C5  84 9F
-  lda z:_var_00bc                ; $C8C7  A5 BC
+  lda z:TargetFinishedFalling                ; $C8C7  A5 BC
   bne _label_c8fb                ; $C8C9  D0 30
   lda a:TargetOneState        ; $C8CB  AD 01 03
   bne _label_c901                ; $C8CE  D0 31
@@ -1969,7 +1969,7 @@ _label_ca0e:
   inc z:CurrentActiveDuckTarget                ; $CA0E  E6 BB
   lda z:CurrentActiveDuckTarget                ; $CA10  A5 BB
   sta z:DuckNumber                ; $CA12  85 3B
-  dec z:_var_00bc                ; $CA14  C6 BC
+  dec z:TargetFinishedFalling                ; $CA14  C6 BC
   inc z:_var_0031                ; $CA16  E6 31
   rts                            ; $CA18  60
 
@@ -2590,7 +2590,7 @@ _label_cd9a:
   ldy #$00                       ; $CDB8  A0 00
 
 _label_cdba:
-  sta z:_var_00bc                ; $CDBA  85 BC
+  sta z:TargetFinishedFalling                ; $CDBA  85 BC
   sty a:_var_0350                ; $CDBC  8C 50 03
   sty a:_var_0351                ; $CDBF  8C 51 03
   lda #$01                       ; $CDC2  A9 01
@@ -3904,7 +3904,7 @@ _label_d5ad:
   lda #$03                       ; $D5B7  A9 03
   sta z:RemainingShots                ; $D5B9  85 BA
   lda #$02                       ; $D5BB  A9 02
-  sta z:_var_00bc                ; $D5BD  85 BC
+  sta z:TargetFinishedFalling                ; $D5BD  85 BC
   lda #$00                       ; $D5BF  A9 00
   sta z:_var_00b5                ; $D5C1  85 B5
   sta z:TargetActive                ; $D5C3  85 B9
@@ -3948,7 +3948,7 @@ _label_d600:
   jsr _func_c607                 ; $D60F  20 07 C6
 
 _label_d612:
-  lda z:_var_00bc                ; $D612  A5 BC
+  lda z:TargetFinishedFalling                ; $D612  A5 BC
   bne _label_d64b                ; $D614  D0 35
   ldx a:TargetOneState        ; $D616  AE 01 03
   ldy a:_var_0351                ; $D619  AC 51 03
@@ -4056,7 +4056,7 @@ _label_d697:
   inc z:CurrentActiveDuckTarget                ; $D6BF  E6 BB
   lda z:CurrentActiveDuckTarget                ; $D6C1  A5 BB
   sta z:DuckNumber                ; $D6C3  85 3B
-  dec z:_var_00bc                ; $D6C5  C6 BC
+  dec z:TargetFinishedFalling                ; $D6C5  C6 BC
   lda #$FF                       ; $D6C7  A9 FF
   sta z:_var_005f                ; $D6C9  85 5F
   jsr _func_d53c                 ; $D6CB  20 3C D5
@@ -4912,7 +4912,7 @@ _data_dcc0_indexed:
 _data_e532_indexed:
 .byte $40
 
-_data_e533_indexed:
+PaletteTable:
 .byte $e5, $58, $e5, $7c, $e5, $a0, $e5, $a9, $e5, $c7, $e5, $b4, $e5, $3f, $00, $10
 .byte $0f, $2c, $27, $0f, $0f, $0f, $30, $30, $0f, $0f, $2a, $2a, $0f, $0f, $27, $27
 .byte $3f, $10, $50, $0f, $00, $3f, $00, $20, $21, $07, $29, $0a, $21, $30, $29, $0a

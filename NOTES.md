@@ -66,6 +66,9 @@ SCOREA = $00C4
 SCOREB = $00C5
 SCOREC = $00C6
 
+## Pausing/Transitions
+It looks like $0025 is set to 0x16 when paused; then I see it change a few values afterwards. I'll need to investigate this, but this is definitely, confirming with cheats, the way of saying "Stop updating the screen". Other values like 07 just send you back to the main menu. Except.. When set to 0x4, when clicking into a game, the game plays its "You shot enough ducks onto the next round" sound! 03 just gives a blue background. Setting to 0D pauses and then starts shooting clay.. even on the duck stage. This value has more to it i just dont know whats happening atm.
+
 ## Coordinates of things?
 _var_000f = $000F ; duck/dog X value??
 _var_0010_indexed = $0010 ; duck/dog Y value??

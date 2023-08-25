@@ -7,14 +7,18 @@ DOGANIMATION = $00BD ; In single duck mode, the game sets this to 0x1 in between
 
 # Gameplay
 
-## Game phase ?? (Unconfirmed, I need to check this)
+## Game phase.. in different ways.
+The way the game controls the sprites (the ducks/the dog) is through what's probably a phase; for example, the dog walking has phases for walking straight, sniffing, smelling something interesting, turning its head, jumping over the grass, etc. but it's also used in the game with how the ducks react, and how the dog pops up when it 'catches' the duck you shot.
+
+For now, I'm calling this the 'SpritePhase'. Not sure if its a game phase, but some things (like the "ROUND" number being shown) revolves around this variable.
+
 PHASE = $0031
 Being set to 01 shows the "ROUND" number
 Being set to 02 shows the dog spawns
 Being set to 03 the dog is walking. Fun fact- it has no "STOP" coordinates, so it will keep walking, then when off screen the pixels just appear on the other side LOL
-Being set to 05 the dog sniffs (yes, really), then will start its jump. If being forced afterwords, then it shows ducks moving around?
+Being set to 05 the dog sniffs (yes, really), then will start its jump. If being forced afterwords, then it shows ducks moving around? I think it's also set to 5 when the duck freezes for like, the half second
 Being set to 06 the dog gets EXCITED, holds out his tounge wide
-Being set to 07 the duck is turning again?
+Being set to 07 the duck is turning again? In gameplay, the duck is falling at this point.
 Being set to 04, 08 does nothing, higher than that causes overflow
 
 ## The targets

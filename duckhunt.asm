@@ -87,7 +87,7 @@ _var_002b_indexed = $002B
 TitleScreenSongCountdown = $002D
 _var_002f = $002F
 _var_0030_indexed = $0030
-_var_0031 = $0031
+CurrentSpritePhase = $0031
 _var_0032 = $0032
 _var_0033 = $0033
 _var_0034 = $0034
@@ -1789,7 +1789,7 @@ _label_c901:
   rts                            ; $C901  60
 
 _func_c902:
-  lda z:_var_0031                ; $C902  A5 31
+  lda z:CurrentSpritePhase                ; $C902  A5 31
   jsr _jump_engine_c35e          ; $C904  20 5E C3
 
   .word _label_c5e0              ; $C907  E0 C5
@@ -1818,7 +1818,7 @@ _label_c91b:
   sta z:_var_0037                ; $C92D  85 37
 
 _label_c92f:
-  inc z:_var_0031                ; $C92F  E6 31
+  inc z:CurrentSpritePhase                ; $C92F  E6 31
 
 _label_c931:
   rts                            ; $C931  60
@@ -1970,7 +1970,7 @@ _label_ca0e:
   lda z:CurrentActiveDuckTarget                ; $CA10  A5 BB
   sta z:DuckNumber                ; $CA12  85 3B
   dec z:TargetFinishedFalling                ; $CA14  C6 BC
-  inc z:_var_0031                ; $CA16  E6 31
+  inc z:CurrentSpritePhase                ; $CA16  E6 31
   rts                            ; $CA18  60
 
 _label_ca19:
@@ -2207,7 +2207,7 @@ _label_cb59:
   bne _label_cb70                ; $CB64  D0 0A
   lda (_var_0044_indexed),Y      ; $CB66  B1 44
   iny                            ; $CB68  C8
-  sta z:_var_0031                ; $CB69  85 31
+  sta z:CurrentSpritePhase                ; $CB69  85 31
   lda (_var_0044_indexed),Y      ; $CB6B  B1 44
   sta z:_var_0042_indexed        ; $CB6D  85 42
   rts                            ; $CB6F  60
@@ -2350,7 +2350,7 @@ _label_cc1f:
 
 _label_cc37:
   jsr _func_cf0b                 ; $CC37  20 0B CF
-  inc z:_var_0031                ; $CC3A  E6 31
+  inc z:CurrentSpritePhase                ; $CC3A  E6 31
   rts                            ; $CC3C  60
 
 _label_cc3d:
@@ -2398,12 +2398,12 @@ _label_cc7c:
 
 _label_cc85:
   jsr _func_d534                 ; $CC85  20 34 D5
-  inc z:_var_0031                ; $CC88  E6 31
+  inc z:CurrentSpritePhase                ; $CC88  E6 31
   rts                            ; $CC8A  60
 
 _label_cc8b:
   lda #$00                       ; $CC8B  A9 00
-  sta z:_var_0031                ; $CC8D  85 31
+  sta z:CurrentSpritePhase                ; $CC8D  85 31
   ldx z:_var_0036                ; $CC8F  A6 36
   jmp _func_d042                 ; $CC91  4C 42 D0
 
@@ -2421,7 +2421,7 @@ _label_cca8:
   rts                            ; $CCA8  60
 
 _func_cca9:
-  lda z:_var_0031                ; $CCA9  A5 31
+  lda z:CurrentSpritePhase                ; $CCA9  A5 31
   jsr _jump_engine_c35e          ; $CCAB  20 5E C3
 
   .word _label_c5e0              ; $CCAE  E0 C5
@@ -2463,7 +2463,7 @@ _label_ccd6:
   cmp #$07                       ; $CCEE  C9 07
   bne _label_ccf7                ; $CCF0  D0 05
   lda #$10                       ; $CCF2  A9 10
-  sta z:_var_0031                ; $CCF4  85 31
+  sta z:CurrentSpritePhase                ; $CCF4  85 31
   rts                            ; $CCF6  60
 
 _label_ccf7:
@@ -2482,7 +2482,7 @@ _label_cd05:
   sta z:_var_009d                ; $CD0B  85 9D
   jsr _func_c5d9                 ; $CD0D  20 D9 C5
   jsr _func_f56c                 ; $CD10  20 6C F5
-  inc z:_var_0031                ; $CD13  E6 31
+  inc z:CurrentSpritePhase                ; $CD13  E6 31
   rts                            ; $CD15  60
 
 _label_cd16:
@@ -2498,7 +2498,7 @@ _label_cd1d:
   lda z:_var_0044_indexed        ; $CD25  A5 44
   cmp #$20                       ; $CD27  C9 20
   bcc _label_cd2e                ; $CD29  90 03
-  inc z:_var_0031                ; $CD2B  E6 31
+  inc z:CurrentSpritePhase                ; $CD2B  E6 31
 
 _label_cd2d:
   rts                            ; $CD2D  60
@@ -2509,7 +2509,7 @@ _label_cd2e:
   cmp z:_var_0045                ; $CD33  C5 45
   bne _label_cd2d                ; $CD35  D0 F6
   lda #$06                       ; $CD37  A9 06
-  sta z:_var_0031                ; $CD39  85 31
+  sta z:CurrentSpritePhase                ; $CD39  85 31
   rts                            ; $CD3B  60
 
 _label_cd3c:
@@ -2520,7 +2520,7 @@ _label_cd3c:
 
 _label_cd44:
   jsr _func_cf0b                 ; $CD44  20 0B CF
-  inc z:_var_0031                ; $CD47  E6 31
+  inc z:CurrentSpritePhase                ; $CD47  E6 31
   jmp _func_ce4d                 ; $CD49  4C 4D CE
 
 _label_cd4c:
@@ -2632,7 +2632,7 @@ _label_cdd9:
   lda #$01                       ; $CE0B  A9 01
   sta z:WhiteBox                ; $CE0D  85 27
   lda #$12                       ; $CE0F  A9 12
-  sta z:_var_0031                ; $CE11  85 31
+  sta z:CurrentSpritePhase                ; $CE11  85 31
   lda #$00                       ; $CE13  A9 00
   sta z:_var_0042_indexed        ; $CE15  85 42
   rts                            ; $CE17  60
@@ -2649,7 +2649,7 @@ _label_ce18:
 
 _label_ce29:
   lda #$0E                       ; $CE29  A9 0E
-  sta z:_var_0031                ; $CE2B  85 31
+  sta z:CurrentSpritePhase                ; $CE2B  85 31
   rts                            ; $CE2D  60
 
 _label_ce2e:
@@ -2666,7 +2666,7 @@ _label_ce40:
   lda z:_var_0042_indexed        ; $CE40  A5 42
   bne _func_ce4d                 ; $CE42  D0 09
   lda #$00                       ; $CE44  A9 00
-  sta z:_var_0031                ; $CE46  85 31
+  sta z:CurrentSpritePhase                ; $CE46  85 31
   ldx z:_var_0036                ; $CE48  A6 36
   jmp _func_d042                 ; $CE4A  4C 42 D0
 
@@ -2698,7 +2698,7 @@ _label_ce72:
   ldx z:_var_00a1                ; $CE74  A6 A1
   cpx #$02                       ; $CE76  E0 02
   bne _label_cee6                ; $CE78  D0 6C
-  ldx z:_var_0031                ; $CE7A  A6 31
+  ldx z:CurrentSpritePhase                ; $CE7A  A6 31
   cpx #$09                       ; $CE7C  E0 09
   beq _label_cead                ; $CE7E  F0 2D
   cpx #$0B                       ; $CE80  E0 0B
@@ -2780,7 +2780,7 @@ _label_cee6:
 _label_ceed:
   ldy z:_var_0043_indexed        ; $CEED  A4 43
   lda (_var_0040_indexed),Y      ; $CEEF  B1 40
-  sta z:_var_0031                ; $CEF1  85 31
+  sta z:CurrentSpritePhase                ; $CEF1  85 31
   iny                            ; $CEF3  C8
   lda (_var_0040_indexed),Y      ; $CEF4  B1 40
   sta z:_var_0042_indexed        ; $CEF6  85 42
@@ -2824,7 +2824,7 @@ _label_cf16:
 
 _label_cf2a:
   lda #$08                       ; $CF2A  A9 08
-  sta z:_var_0031                ; $CF2C  85 31
+  sta z:CurrentSpritePhase                ; $CF2C  85 31
   lda #$00                       ; $CF2E  A9 00
   sta z:_var_0042_indexed        ; $CF30  85 42
   rts                            ; $CF32  60
@@ -3990,7 +3990,7 @@ _label_d651:
   rts                            ; $D651  60
 
 _func_d652:
-  lda z:_var_0031                ; $D652  A5 31
+  lda z:CurrentSpritePhase                ; $D652  A5 31
   jsr _jump_engine_c35e          ; $D654  20 5E C3
 
   .word _label_c5e0              ; $D657  E0 C5
@@ -4062,7 +4062,7 @@ _label_d697:
   jsr _func_d53c                 ; $D6CB  20 3C D5
   lda #$05                       ; $D6CE  A9 05
   sta z:_var_0058                ; $D6D0  85 58
-  inc z:_var_0031                ; $D6D2  E6 31
+  inc z:CurrentSpritePhase                ; $D6D2  E6 31
 
 _label_d6d4:
   rts                            ; $D6D4  60
@@ -4145,7 +4145,7 @@ _label_d73e:
 
 _label_d74d:
   lda #$08                       ; $D74D  A9 08
-  sta z:_var_0031                ; $D74F  85 31
+  sta z:CurrentSpritePhase                ; $D74F  85 31
   rts                            ; $D751  60
 
 _label_d752:
@@ -4182,7 +4182,7 @@ _label_d774:
   jsr _func_cf56                 ; $D784  20 56 CF
   ldx z:_var_0036                ; $D787  A6 36
   jsr _func_d042                 ; $D789  20 42 D0
-  inc z:_var_0031                ; $D78C  E6 31
+  inc z:CurrentSpritePhase                ; $D78C  E6 31
   rts                            ; $D78E  60
 
 _label_d78f:
@@ -4221,7 +4221,7 @@ _label_d7be:
 
 _label_d7c5:
   lda #$00                       ; $D7C5  A9 00
-  sta z:_var_0031                ; $D7C7  85 31
+  sta z:CurrentSpritePhase                ; $D7C7  85 31
   ldx z:_var_0036                ; $D7C9  A6 36
   jmp _func_d042                 ; $D7CB  4C 42 D0
 
@@ -4592,7 +4592,7 @@ _label_d9e2:
   bne _label_d9f5                ; $D9EC  D0 07
   jsr _func_cff9                 ; $D9EE  20 F9 CF
   lda #$08                       ; $D9F1  A9 08
-  sta z:_var_0031                ; $D9F3  85 31
+  sta z:CurrentSpritePhase                ; $D9F3  85 31
 
 _label_d9f5:
   rts                            ; $D9F5  60

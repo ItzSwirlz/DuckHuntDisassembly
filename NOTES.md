@@ -30,6 +30,9 @@ if $00BC is set to 0x1. Might be basically some boolean value. Setting it to "Ta
 
 When shooting a target, at least for the ducks in single player, $00BD is set to 1 until TargetFinishedFalling is reset.
 
+### Ducks flying away
+If the duck flies away, 004E seems to be set to 01. Using cheats, if forced to 00, the background will stay blue, and the duck wont leave the screen. Being set to 01 all the time has the ducks continue to fly in their normal direction, but not vertically when they should 'fly away.'. So what I think this is, is just a boolean as to whether the duck is leaving the screen - this can be triggered when the time runs up.
+
 ## The bottom bar
 I assume, you reading this, you know how it works; it blinks the duck #, if you hit it, its red, otherwise it goes to the next one. Then, in a nerdly satisfying way, it shifts all the ducks you hit to see if its enough to keep the game going.
 

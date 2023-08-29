@@ -116,7 +116,7 @@ DuckDirection = $004A
 _var_004b = $004B
 _var_004c = $004C
 _var_004d = $004D
-_var_004e = $004E
+TargetFlyingAway = $004E
 _var_0050_indexed = $0050
 _var_0053 = $0053
 _var_0054 = $0054
@@ -1945,7 +1945,7 @@ _label_c9e2:
   lda #$00                       ; $C9E4  A9 00
   sta z:_var_0046                ; $C9E6  85 46
   sta z:_var_0042_indexed        ; $C9E8  85 42
-  sta z:_var_004e                ; $C9EA  85 4E
+  sta z:TargetFlyingAway                ; $C9EA  85 4E
   sta z:$4F                      ; $C9EC  85 4F
   lda #$01                       ; $C9EE  A9 01
   sta z:_var_004b                ; $C9F0  85 4B
@@ -1988,10 +1988,10 @@ _label_ca22:
 _label_ca29:
   lda z:RemainingShots                ; $CA29  A5 BA
   bne _label_ca3e                ; $CA2B  D0 11
-  lda z:_var_004e                ; $CA2D  A5 4E
+  lda z:TargetFlyingAway                ; $CA2D  A5 4E
   bne _label_ca3e                ; $CA2F  D0 0D
   lda #$01                       ; $CA31  A9 01
-  sta z:_var_004e                ; $CA33  85 4E
+  sta z:TargetFlyingAway                ; $CA33  85 4E
   lda #$F0                       ; $CA35  A9 F0
   sta z:_var_0046                ; $CA37  85 46
   lda #$00                       ; $CA39  A9 00
@@ -4107,7 +4107,7 @@ _label_d700:
   sec                            ; $D705  38
   sbc #$01                       ; $D706  E9 01
   bne _label_d700                ; $D708  D0 F6
-  lda z:_var_004e                ; $D70A  A5 4E
+  lda z:TargetFlyingAway                ; $D70A  A5 4E
   bmi _label_d74d                ; $D70C  30 3F
   lda z:_var_0049                ; $D70E  A5 49
   cmp #$30                       ; $D710  C9 30
@@ -4302,7 +4302,7 @@ _func_d82f:
   sec                            ; $D831  38
   sbc #$00                       ; $D832  E9 00
   tay                            ; $D834  A8
-  lda z:_var_004e                ; $D835  A5 4E
+  lda z:TargetFlyingAway                ; $D835  A5 4E
   sbc #$10                       ; $D837  E9 10
   tax                            ; $D839  AA
   lda #$3B                       ; $D83A  A9 3B
@@ -4313,7 +4313,7 @@ _func_d82f:
   sec                            ; $D845  38
   sbc #$00                       ; $D846  E9 00
   tay                            ; $D848  A8
-  lda z:_var_004e                ; $D849  A5 4E
+  lda z:TargetFlyingAway                ; $D849  A5 4E
   sbc #$10                       ; $D84B  E9 10
   tax                            ; $D84D  AA
   lda #$E7                       ; $D84E  A9 E7

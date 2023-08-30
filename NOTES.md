@@ -76,6 +76,9 @@ It looks like $0025 is set to 0x16 when paused; then I see it change a few value
 _var_000f = $000F ; duck/dog X value??
 _var_0010_indexed = $0010 ; duck/dog Y value??
 
+## Colors
+I believe the PaletteTable is at _data_e5ee. I also found DogColor = 003C.
+
 # Controls
 Just like in the SMB disassembly, it looks like each port has its own variable for tracking button presses. However there are some oddities...
 

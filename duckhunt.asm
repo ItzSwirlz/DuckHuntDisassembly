@@ -99,7 +99,7 @@ _var_0039 = $0039
 _var_003a = $003A
 
 DuckNumber = $003B
-_var_003c = $003C
+DogColor = $003C
 DuckColor = $003F
 
 _var_0040_indexed = $0040
@@ -1874,7 +1874,7 @@ _label_c958:
   ldy #$02                       ; $C97E  A0 02
 
 _label_c980:
-  sty z:_var_003c                ; $C980  84 3C
+  sty z:DogColor                ; $C980  84 3C
   inc z:_var_0099                ; $C982  E6 99
   ldx z:_var_0098                ; $C984  A6 98
   lda a:_data_e766_indexed,X     ; $C986  BD 66 E7
@@ -3073,7 +3073,7 @@ _label_d0a0:
   iny                            ; $D0A4  C8
   lda (_var_0012_indexed),Y      ; $D0A5  B1 12
   clc                            ; $D0A7  18
-  adc z:_var_003c                ; $D0A8  65 3C
+  adc z:DogColor                ; $D0A8  65 3C
   sta z:_var_00b3                ; $D0AA  85 B3
   lda z:_var_0038                ; $D0AC  A5 38
   beq _label_d08e                ; $D0AE  F0 DE

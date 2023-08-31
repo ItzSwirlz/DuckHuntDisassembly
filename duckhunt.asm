@@ -3484,9 +3484,9 @@ _label_d33d:
   bne _label_d32a                ; $D33F  D0 E9
   lda #$10                       ; $D341  A9 10
   sta z:_var_002b_indexed        ; $D343  85 2B
-  inc z:NextLevelCountdown                ; $D345  E6 BE
+  inc z:NextLevelCountdown                ; $D345  E6 BE - Increase the count(up, technically)
   lda z:NextLevelCountdown                ; $D347  A5 BE
-  cmp #$0F                       ; $D349  C9 0F
+  cmp #$0F                       ; $D349  C9 0F - Compare the value with 0F, the final value
   bne _label_d3ad                ; $D34B  D0 60
   lda z:CurrentNumberTargets                ; $D34D  A5 AA
   cmp #$0A                       ; $D34F  C9 0A

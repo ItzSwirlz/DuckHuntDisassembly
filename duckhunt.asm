@@ -173,7 +173,7 @@ CurrentActiveDuckTarget = $00BB
 TargetFinishedFalling = $00BC
 TargetShot = $00BD
 
-_var_00be = $00BE
+NextLevelCountdown = $00BE
 LevelNumber = $00C1
 _var_00c2 = $00C2
 _var_00c3_indexed = $00C3
@@ -1469,10 +1469,10 @@ _label_c6e9:
   jmp _func_c71d                 ; $C6F2  4C 1D C7
 
 _func_c6f5:
-  lda z:_var_00be                ; $C6F5  A5 BE
+  lda z:NextLevelCountdown                ; $C6F5  A5 BE
   beq _label_c694                ; $C6F7  F0 9B
   lda #$00                       ; $C6F9  A9 00
-  sta z:_var_00be                ; $C6FB  85 BE
+  sta z:NextLevelCountdown                ; $C6FB  85 BE
   ldx z:RemainingShots                ; $C6FD  A6 BA
   ldy #$00                       ; $C6FF  A0 00
 
@@ -2456,7 +2456,7 @@ _label_ccd6:
   lda #$03                       ; $CCDE  A9 03
   sta z:RemainingShots                ; $CCE0  85 BA
   lda #$01                       ; $CCE2  A9 01
-  sta z:_var_00be                ; $CCE4  85 BE
+  sta z:NextLevelCountdown                ; $CCE4  85 BE
   sta z:_var_00ad                ; $CCE6  85 AD
   lda #$02                       ; $CCE8  A9 02
   sta z:_var_0023                ; $CCEA  85 23
@@ -2580,7 +2580,7 @@ _label_cd9a:
   lda #$03                       ; $CDA2  A9 03
   sta z:RemainingShots                ; $CDA4  85 BA
   lda #$01                       ; $CDA6  A9 01
-  sta z:_var_00be                ; $CDA8  85 BE
+  sta z:NextLevelCountdown                ; $CDA8  85 BE
   lda #$00                       ; $CDAA  A9 00
   sta z:TargetShot                ; $CDAC  85 BD
   lda #$02                       ; $CDAE  A9 02
@@ -3212,7 +3212,7 @@ _label_d169:
   beq _label_d164                ; $D16F  F0 F3
   dec z:RemainingShots                ; $D171  C6 BA
   lda #$01                       ; $D173  A9 01
-  sta z:_var_00be                ; $D175  85 BE
+  sta z:NextLevelCountdown                ; $D175  85 BE
   lda #$00                       ; $D177  A9 00
   sta z:_var_00b5                ; $D179  85 B5
   jsr _func_d4e6                 ; $D17B  20 E6 D4
@@ -3456,7 +3456,7 @@ _label_d309:
   bcc _label_d32b                ; $D30D  90 1C
   jsr _func_d51d                 ; $D30F  20 1D D5
   lda #$00                       ; $D312  A9 00
-  sta z:_var_00be                ; $D314  85 BE
+  sta z:NextLevelCountdown                ; $D314  85 BE
   lda #$10                       ; $D316  A9 10
   sta z:_var_002b_indexed        ; $D318  85 2B
   inc z:_var_00a9                ; $D31A  E6 A9
@@ -3484,8 +3484,8 @@ _label_d33d:
   bne _label_d32a                ; $D33F  D0 E9
   lda #$10                       ; $D341  A9 10
   sta z:_var_002b_indexed        ; $D343  85 2B
-  inc z:_var_00be                ; $D345  E6 BE
-  lda z:_var_00be                ; $D347  A5 BE
+  inc z:NextLevelCountdown                ; $D345  E6 BE
+  lda z:NextLevelCountdown                ; $D347  A5 BE
   cmp #$0F                       ; $D349  C9 0F
   bne _label_d3ad                ; $D34B  D0 60
   lda z:CurrentNumberTargets                ; $D34D  A5 AA
@@ -3872,7 +3872,7 @@ _label_d56a:
   jsr _func_c5d9                 ; $D576  20 D9 C5
   jsr _func_f56c                 ; $D579  20 6C F5
   lda #$01                       ; $D57C  A9 01
-  sta z:_var_00be                ; $D57E  85 BE
+  sta z:NextLevelCountdown                ; $D57E  85 BE
   lda #$03                       ; $D580  A9 03
   sta z:RemainingShots                ; $D582  85 BA
   jsr _func_c6f5                 ; $D584  20 F5 C6
@@ -3901,7 +3901,7 @@ _label_d5ad:
   lda #$80                       ; $D5AF  A9 80
   sta z:_var_00a6                ; $D5B1  85 A6
   lda #$01                       ; $D5B3  A9 01
-  sta z:_var_00be                ; $D5B5  85 BE
+  sta z:NextLevelCountdown                ; $D5B5  85 BE
   lda #$03                       ; $D5B7  A9 03
   sta z:RemainingShots                ; $D5B9  85 BA
   lda #$02                       ; $D5BB  A9 02

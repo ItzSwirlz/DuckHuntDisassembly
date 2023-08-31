@@ -41,6 +41,9 @@ I found out $00BB is the number of the duck that is blinking. Interestingly I th
 
 It's not a good name but fo now its CurrentActiveDuckTarget.
 
+### 00BE
+This was fun to figure out! The game has a 'counter' for how long the game has to wait for the audio to play when the round ends succesfully. When it doesn't, it gets set to 01.. then idk
+
 ## Background/graphics
 BACKGROUNCOLOR = $0403 ; ??? I'm not sure yet, I just know changing this affects the bg color. 0x21 is the default blue, 0x36 is the "FLY AWAY" red.
 

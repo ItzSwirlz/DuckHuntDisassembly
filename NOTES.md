@@ -41,6 +41,9 @@ I found out $00BB is the number of the duck that is blinking. Interestingly I th
 
 It's not a good name but fo now its CurrentActiveDuckTarget.
 
+### That blue line
+00AB seems to be the number of ducks necessary for the round to continue. Forcing it to 00 lets the round continue.. meaning you literally never game over. The higher the value, the longer the blue bar is. Forcing the value to larger than the length for the number of ducks will mean.. you will game over. It doesn't matter if you get a perfect score or not. Setting it to "MinimumNumShotTargets"
+
 ### 00BE
 This was fun to figure out! The game has a 'counter' for how long the game has to wait for the audio to play when the round ends succesfully. When it doesn't, it gets set to 01.. then idk
 

@@ -153,7 +153,7 @@ _var_00a7 = $00A7
 _var_00a8 = $00A8
 _var_00a9 = $00A9
 CurrentNumberTargets = $00AA
-_var_00ab = $00AB
+MinimumNumShotTargets = $00AB
 _var_00ad = $00AD
 _var_00ae = $00AE
 _var_00af = $00AF
@@ -1575,7 +1575,7 @@ _func_c793:
   ldx #$0A                       ; $C793  A2 0A
 
 _label_c795:
-  cpx z:_var_00ab                ; $C795  E4 AB
+  cpx z:MinimumNumShotTargets                ; $C795  E4 AB
   bcc _label_c79f                ; $C797  90 06
   beq _label_c79f                ; $C799  F0 04
   lda #$B7                       ; $C79B  A9 B7
@@ -3398,7 +3398,7 @@ _label_d2a6:
 _label_d2b1:
   iny                            ; $D2B1  C8
   sty z:_var_00c2                ; $D2B2  84 C2
-  sta z:_var_00ab                ; $D2B4  85 AB
+  sta z:MinimumNumShotTargets                ; $D2B4  85 AB
   lda #$00                       ; $D2B6  A9 00
   sta z:CurrentActiveDuckTarget                ; $D2B8  85 BB
   sta z:CurrentNumberTargets                ; $D2BA  85 AA
@@ -3452,7 +3452,7 @@ _label_d2f7:
 
 _label_d309:
   lda z:CurrentNumberTargets                ; $D309  A5 AA
-  cmp z:_var_00ab                ; $D30B  C5 AB
+  cmp z:MinimumNumShotTargets                ; $D30B  C5 AB
   bcc _label_d32b                ; $D30D  90 1C
   jsr _func_d51d                 ; $D30F  20 1D D5
   lda #$00                       ; $D312  A9 00

@@ -88,7 +88,7 @@ I believe the PaletteTable is at _data_e5ee. I also found DogColor = 003C.
 # Controls
 Just like in the SMB disassembly, it looks like each port has its own variable for tracking button presses. However there are some oddities...
 
-I see in the emulator this appears as $0016; so lets be careful with what we think are named vars
+In the emulator, inputs are sent to the duck via JOYPAD1 at $0016 and JOYPAD2 for $0017, which mirror the following:
 
 JOYPAD1 = $4016
 JOYPAD2 = $4017

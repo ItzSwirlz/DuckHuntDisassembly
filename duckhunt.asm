@@ -65,7 +65,7 @@ _var_0012_indexed = $0012
 _var_0013 = $0013
 _var_0014_indexed = $0014
 _var_0015 = $0015
-_var_0016_indexed = $0016
+JOYPAD1MIRROR = $0016
 _var_001a = $001A
 _var_001b = $001B
 _var_001c_indexed = $001C
@@ -406,7 +406,7 @@ _func_c0b3:
   jmp _label_c14e                ; $C0B7  4C 4E C1
 
 _label_c0ba:
-  lda z:_var_0016_indexed        ; $C0BA  A5 16
+  lda z:JOYPAD1MIRROR        ; $C0BA  A5 16
   and #$10                       ; $C0BC  29 10
   beq _label_c11e                ; $C0BE  F0 5E
   ldy a:StartButtonDown                ; $C0C0  AC FC 05
@@ -504,7 +504,7 @@ _label_c14e:
   beq StartGame                ; $C168  F0 0C - it means Start has been pressed, go into the game
   cmp #$02                       ; $C16A  C9 02 - if MenuAction is set to 0x2
   beq CycleGameMode                ; $C16C  F0 2B - cycle to the next gamemode
-  lda z:_var_0016_indexed        ; $C16E  A5 16
+  lda z:JOYPAD1MIRROR        ; $C16E  A5 16
   and #$30                       ; $C170  29 30
   cmp #$10                       ; $C172  C9 10
   bne _label_c189                ; $C174  D0 13
@@ -725,7 +725,7 @@ _label_c293:
   ldy a:_var_0442_indexed,X      ; $C2AA  BC 42 04
   cpy #$05                       ; $C2AD  C0 05
   bcc _label_c2be                ; $C2AF  90 0D
-  sta z:_var_0016_indexed,X      ; $C2B1  95 16
+  sta z:JOYPAD1MIRROR,X      ; $C2B1  95 16
   jmp _label_c2b9                ; $C2B3  4C B9 C2
 
 _label_c2b6:
@@ -2038,7 +2038,7 @@ _label_ca70:
   stx z:_var_00ae                ; $CA70  86 AE
   cpx #$01                       ; $CA72  E0 01
   beq _label_ca8a                ; $CA74  F0 14
-  lda z:_var_0016_indexed        ; $CA76  A5 16
+  lda z:JOYPAD1MIRROR        ; $CA76  A5 16
   and #$0F                       ; $CA78  29 0F
   bne _label_caa8                ; $CA7A  D0 2C
   lda z:$17                      ; $CA7C  A5 17

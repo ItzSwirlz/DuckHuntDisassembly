@@ -150,3 +150,13 @@ So I think this is basically a way of telling the menu what to do next, whether 
 
 # Data (Palettes, audio, etc)
 - Palette/PPU/even Sprite color-related data happen to be set at the same location, data $33E5.
+
+# Fun Facts!
+It is common knowledge probably that if you dont do anything on the start menu, periodically the duck hunt jingle will play again. Previous ROM hackers have figured out this is a countdown, but apparently, if you press select, the countdown resets; probably not to be annoying. So basically, there is an AFK (or AF:NES - Away From:Nintendo Entertainment System) check in the code.
+```asm
+CheckSelectButtonDown:
+  cmp #$20                       ; $C190  C9 20 - Check if the select button is down on the joypad (user input is active)
+  bne _label_c1a9                ; $C192  D0 15 - If not, do this (TODO)
+  lda a:SelectButtonDown                ; $C194  AD FD 05 - Load the select button's status
+  bne ResetTitleScreenSongCountdown                ; $C197  D0 1E - If pressed, then it means the user is not AFK (or AFG? AFN?), so reset the title screen countdown
+```

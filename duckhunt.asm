@@ -504,7 +504,7 @@ _label_c14e:
   beq StartGame                ; $C168  F0 0C - it means Start has been pressed, go into the game
   cmp #$02                       ; $C16A  C9 02 - if MenuAction is set to 0x2
   beq CycleGameMode                ; $C16C  F0 2B - cycle to the next gamemode
-  lda z:JOYPAD1MIRROR        ; $C16E  A5 16
+  lda z:JOYPAD1MIRROR        ; $C16E  A5 16 - Load the joypad mirror, will be used in other function calls
   and #$30                       ; $C170  29 30
   cmp #$10                       ; $C172  C9 10
   bne _label_c189                ; $C174  D0 13
@@ -522,16 +522,16 @@ StartGame:
 
 _label_c189:
   ldx z:_var_0026                ; $C189  A6 26
-  bne _label_c190                ; $C18B  D0 03
+  bne CheckSelectButtonDown                ; $C18B  D0 03
 
 _label_c18d:
   jmp _label_c217                ; $C18D  4C 17 C2
 
-_label_c190:
-  cmp #$20                       ; $C190  C9 20
-  bne _label_c1a9                ; $C192  D0 15
-  lda a:SelectButtonDown                ; $C194  AD FD 05
-  bne _label_c1b7                ; $C197  D0 1E
+CheckSelectButtonDown:
+  cmp #$20                       ; $C190  C9 20 - Check if the select button is down on the joypad (user input is active)
+  bne _label_c1a9                ; $C192  D0 15 - If not, do this (TODO)
+  lda a:SelectButtonDown                ; $C194  AD FD 05 - Load the select button's status
+  bne ResetTitleScreenSongCountdown                ; $C197  D0 1E - If pressed, then it means the user is not AFK (or AFG? AFN?), so reset the title screen countdown
 
 CycleGameMode:
   ldy a:SelectedGameMode                ; $C199  AC FE 05 - load Y to SelectedGameMode
@@ -554,9 +554,9 @@ _label_c1b2:
   lda #$01                       ; $C1B2  A9 01
   sta a:SelectButtonDown                ; $C1B4  8D FD 05
 
-_label_c1b7:
-  lda #$FF                       ; $C1B7  A9 FF
-  sta z:TitleScreenSongCountdown                ; $C1B9  85 2D
+ResetTitleScreenSongCountdown:
+  lda #$FF                       ; $C1B7  A9 FF - load the max value of the countdown (0xFF)
+  sta z:TitleScreenSongCountdown                ; $C1B9  85 2D - store it to the accumulator
 
 _label_c1bb:
   cpx #$01                       ; $C1BB  E0 01

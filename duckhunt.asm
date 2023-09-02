@@ -529,7 +529,7 @@ _label_c18d:
 
 CheckSelectButtonDown:
   cmp #$20                       ; $C190  C9 20 - Check if the select button is down on the joypad (user input is active)
-  bne _label_c1a9                ; $C192  D0 15 - If not, do this (TODO)
+  bne MarkSelectButtonUp                ; $C192  D0 15 - If not, make sure our local way of storing the select's state is showing it is up.
   lda a:SelectButtonDown                ; $C194  AD FD 05 - Load the select button's status
   bne ResetTitleScreenSongCountdown                ; $C197  D0 1E - If pressed, then it means the user is not AFK (or AFG? AFN?), so reset the title screen countdown
 
@@ -542,17 +542,17 @@ CycleGameMode:
 
 SetGameMode:
   sty a:SelectedGameMode                ; $C1A3  8C FE 05 - Store the value of what is selected to the SelectedGameMode
-  jmp _label_c1b2                ; $C1A6  4C B2 C1
+  jmp MarkSelectButtonDown                ; $C1A6  4C B2 C1 - Mark that the select button is down
 
-_label_c1a9:
-  cmp #$00                       ; $C1A9  C9 00
-  bne _label_c1b2                ; $C1AB  D0 05
-  sta a:SelectButtonDown                ; $C1AD  8D FD 05
-  beq _label_c1bb                ; $C1B0  F0 09
+MarkSelectButtonUp:
+  cmp #$00                       ; $C1A9  C9 00 - Get the current joypad input
+  bne MarkSelectButtonDown                ; $C1AB  D0 05 - If zero, there is nothing down, including select, so mark ti as down
+  sta a:SelectButtonDown                ; $C1AD  8D FD 05 - TODO
+  beq _label_c1bb                ; $C1B0  F0 09 - TODO
 
-_label_c1b2:
+MarkSelectButtonDown:
   lda #$01                       ; $C1B2  A9 01
-  sta a:SelectButtonDown                ; $C1B4  8D FD 05
+  sta a:SelectButtonDown                ; $C1B4  8D FD 05 - Load/store 01, marking the button down.
 
 ResetTitleScreenSongCountdown:
   lda #$FF                       ; $C1B7  A9 FF - load the max value of the countdown (0xFF)

@@ -406,9 +406,9 @@ _func_c0b3:
   jmp _label_c14e                ; $C0B7  4C 4E C1
 
 _label_c0ba:
-  lda z:JOYPAD1MIRROR        ; $C0BA  A5 16
-  and #$10                       ; $C0BC  29 10
-  beq _label_c11e                ; $C0BE  F0 5E
+  lda z:JOYPAD1MIRROR        ; $C0BA  A5 16 - Load the joypad input as an accumulator
+  and #$10                       ; $C0BC  29 10 - Check if the start button is down
+  beq ClearStartButtonState                ; $C0BE  F0 5E - If the start button is not down (zero) clear the state of the start button (we know it's been pressed)
   ldy a:StartButtonDown                ; $C0C0  AC FC 05
   bne _label_c123                ; $C0C3  D0 5E
   iny                            ; $C0C5  C8
@@ -461,7 +461,7 @@ _label_c112:
   jsr _func_c5d9                 ; $C118  20 D9 C5
   jmp _label_d521                ; $C11B  4C 21 D5
 
-_label_c11e:
+ClearStartButtonState:
   lda #$00                       ; $C11E  A9 00
   sta a:StartButtonDown                ; $C120  8D FC 05
 
@@ -491,7 +491,7 @@ _label_c123:
 
 _label_c14e:
   lda #$00                       ; $C14E  A9 00
-  sta a:MenuAction                ; $C150  8D FF 05 - load 0x0 to MenuAction, which means doing nothing, sit on idle
+  sta a:MenuAction                ; $C150  8D FF 05 - load 0x0 as an accumulator to MenuAction, which means doing nothing, sit on idle
   lda #$01                       ; $C153  A9 01
   sta z:TargetActive                ; $C155  85 B9
   sta z:RemainingShots                ; $C157  85 BA
@@ -499,7 +499,7 @@ _label_c14e:
   beq _label_c18d                ; $C15B  F0 30
   jsr _func_d131                 ; $C15D  20 31 D1
   jsr _func_d160                 ; $C160  20 60 D1
-  lda a:MenuAction                ; $C163  AD FF 05
+  lda a:MenuAction                ; $C163  AD FF 05 - load menu action as an accumulator
   cmp #$01                       ; $C166  C9 01 - if MenuAction is set to 0x1
   beq StartGame                ; $C168  F0 0C - it means Start has been pressed, go into the game
   cmp #$02                       ; $C16A  C9 02 - if MenuAction is set to 0x2

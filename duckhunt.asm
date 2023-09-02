@@ -1812,14 +1812,15 @@ _label_c91b:
   dex                            ; $C920  CA
   bpl _label_c91b                ; $C921  10 F8
   lda z:_var_00a1                ; $C923  A5 A1
-  beq _label_c92f                ; $C925  F0 08
+  beq IncrementSpritePhase                ; $C925  F0 08
   lda #$40                       ; $C927  A9 40
   sta z:_var_0036                ; $C929  85 36
   lda #$7F                       ; $C92B  A9 7F
   sta z:_var_0037                ; $C92D  85 37
 
-_label_c92f:
-  inc z:CurrentSpritePhase                ; $C92F  E6 31
+; Literally redundant, used once, this function isn't even necessary.
+IncrementSpritePhase:
+  inc z:CurrentSpritePhase                ; $C92F  E6 31 - Increase the current sprite phase
 
 _label_c931:
   rts                            ; $C931  60

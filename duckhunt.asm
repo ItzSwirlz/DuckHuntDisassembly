@@ -76,7 +76,7 @@ _var_0020 = $0020
 _var_0021 = $0021
 _var_0022 = $0022
 _var_0023 = $0023
-_var_0024 = $0024
+MainMenuActive = $0024
 _var_0025 = $0025
 _var_0026 = $0026
 WhiteBox = $0027
@@ -329,7 +329,7 @@ _label_c02c:
   sta PPU_SCROLL                 ; $C037  8D 05 20
   sta PPU_SCROLL                 ; $C03A  8D 05 20
   ldy #$01                       ; $C03D  A0 01
-  sty z:_var_0024                ; $C03F  84 24
+  sty z:MainMenuActive                ; $C03F  84 24
   lda #$0F                       ; $C041  A9 0F
   sta APU_SND_CHN                ; $C043  8D 15 40
   jsr _func_f581                 ; $C046  20 81 F5
@@ -348,7 +348,7 @@ _label_c056:
   bmi _label_c07c                ; $C05F  30 1B
 
 _label_c061:
-  lda z:_var_0024                ; $C061  A5 24
+  lda z:MainMenuActive                ; $C061  A5 24
   beq _label_c06b                ; $C063  F0 06
   lda z:_var_0026                ; $C065  A5 26
   cmp #$01                       ; $C067  C9 01
@@ -401,7 +401,7 @@ _label_c0a6:
   rti                            ; $C0B2  40
 
 _func_c0b3:
-  lda z:_var_0024                ; $C0B3  A5 24
+  lda z:MainMenuActive                ; $C0B3  A5 24
   beq _label_c0ba                ; $C0B5  F0 03
   jmp _label_c14e                ; $C0B7  4C 4E C1
 
@@ -510,8 +510,8 @@ _label_c14e:
   bne _label_c189                ; $C174  D0 13
 
 StartGame:
-  lda #$00                       ; $C176  A9 00
-  sta z:_var_0024                ; $C178  85 24
+  lda #$00                       ; $C176  A9 00 - Load accumulator to 0
+  sta z:MainMenuActive                ; $C178  85 24 - Store that the main menu is not active
   sta z:_var_0025                ; $C17A  85 25
   jsr _func_d4e2                 ; $C17C  20 E2 D4
   jsr _func_c5e1                 ; $C17F  20 E1 C5
@@ -1555,7 +1555,7 @@ _label_c762:
   sty z:_var_00b5                ; $C76F  84 B5
   sty z:_var_0026                ; $C771  84 26
   iny                            ; $C773  C8
-  sty z:_var_0024                ; $C774  84 24
+  sty z:MainMenuActive                ; $C774  84 24
   jmp _func_c5e1                 ; $C776  4C E1 C5
 
 _label_c779:
@@ -3221,7 +3221,7 @@ _label_d169:
   sta z:_var_0023                ; $D180  85 23
   jsr _func_c23b                 ; $D182  20 3B C2
   jsr _func_c5e1                 ; $D185  20 E1 C5
-  lda z:_var_0024                ; $D188  A5 24
+  lda z:MainMenuActive                ; $D188  A5 24
   beq _label_d19f                ; $D18A  F0 13
   jsr _func_d4e2                 ; $D18C  20 E2 D4
   jsr _func_f56c                 ; $D18F  20 6C F5

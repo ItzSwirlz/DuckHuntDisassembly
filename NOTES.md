@@ -148,6 +148,9 @@ We see $05FF is loaded to 0.. and then it checks if its loaded to 01. So I force
 
 So I think this is basically a way of telling the menu what to do next, whether to jump into the game or cycle. This isnt controller input, it's probably controller -> variable -> _label_c14e. So I'll name this variable MENUACTION - basically what the menu is doing. 
 
+## Menu Status
+When `_var_0024` is set to 00, the game instantly goes. I'm not kidding, if you use a cheat, and do any reset, it will go STRAIGHT to Game A. When set to 01, the screen will stay on the main menu - even if you hit start it will try to bring you back there (the audio will still play). So I'm naming it "MainMenuActive"
+
 # Data (Palettes, audio, etc)
 - Palette/PPU/even Sprite color-related data happen to be set at the same location, data $33E5.
 

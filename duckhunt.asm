@@ -5520,7 +5520,7 @@ _label_f51c:
   and #$C0                       ; $F521  29 C0
   cmp #$C0                       ; $F523  C9 C0
   beq _label_f536                ; $F525  F0 0F
-  jmp (_var_0610)                ; $F527  6C 10 06  jump engine detected
+  jmp (_var_0610)                ; $F527  6C 10 06  jump engine detected - notes seem to be played here, whenever this jump engine is called, 0610 is F4EE
 
 _label_f52a:
   lda z:_var_00e0_indexed,X      ; $F52A  B5 E0
@@ -5584,10 +5584,10 @@ _func_f56c:
   beq _label_f58a                ; $F57F  F0 09
 
 _func_f581:
-  lda #$F4                       ; $F581  A9 F4
-  sta a:$0613                    ; $F583  8D 13 06
-  sta a:$0611                    ; $F586  8D 11 06
-  rts                            ; $F589  60
+  lda #$F4                       ; $F581  A9 F4 - Load the accumulator to 0xF4
+  sta a:$0613                    ; $F583  8D 13 06 - Store it to 0613
+  sta a:$0611                    ; $F586  8D 11 06 - Store it to 0611
+  rts                            ; $F589  60 - Return to subroutine. These values store MIDI system messages - 0xF4 is "Undefined (Reserved)", typically reserved for manufacturers to do custom operations. Makes sense here
 
 _label_f58a:
   sta z:_var_00f0                ; $F58A  85 F0

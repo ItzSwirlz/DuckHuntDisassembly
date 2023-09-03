@@ -79,7 +79,7 @@ _var_0023 = $0023
 MainMenuActive = $0024
 _var_0025 = $0025
 _var_0026 = $0026
-WhiteBox = $0027
+WhiteBoxVisible = $0027
 _var_0028 = $0028
 _var_0029 = $0029
 _var_002a_indexed = $002A
@@ -673,10 +673,10 @@ _label_c262:
   rts                            ; $C262  60
 
 _func_c263:
-  ldy z:WhiteBox                ; $C263  A4 27
+  ldy z:WhiteBoxVisible                ; $C263  A4 27
   beq _label_c262                ; $C265  F0 FB
   ldy #$00                       ; $C267  A0 00
-  sty z:WhiteBox                ; $C269  84 27
+  sty z:WhiteBoxVisible                ; $C269  84 27
   lda #$00                       ; $C26B  A9 00
   ldx #$04                       ; $C26D  A2 04
   bne _label_c25b                ; $C26F  D0 EA
@@ -2632,7 +2632,7 @@ _label_cdd9:
   lda #$00                       ; $CE06  A9 00
   sta a:$0413                    ; $CE08  8D 13 04
   lda #$01                       ; $CE0B  A9 01
-  sta z:WhiteBox                ; $CE0D  85 27
+  sta z:WhiteBoxVisible                ; $CE0D  85 27
   lda #$12                       ; $CE0F  A9 12
   sta z:CurrentSpritePhase                ; $CE11  85 31
   lda #$00                       ; $CE13  A9 00
@@ -2899,24 +2899,25 @@ _label_cf7f:
   jmp _func_c655                 ; $CF93  4C 55 C6
 
 _func_cf96:
-  lda z:TargetShot                ; $CF96  A5 BD
-  bne _label_cfb9                ; $CF98  D0 1F
+  lda z:TargetShot                ; $CF96  A5 BD -  load if the target was shot to the accumulator
+  bne ReturnToSubroutineBecauseTargetWasShot                ; $CF98  D0 1F - if not zero, we shot the target, return to subroutine.
   lda #$06                       ; $CF9A  A9 06
   jsr _func_d464                 ; $CF9C  20 64 D4
   lda #$30                       ; $CF9F  A9 30
   sta z:_var_002b_indexed        ; $CFA1  85 2B
   lda #$06                       ; $CFA3  A9 06
   sta z:_var_0023                ; $CFA5  85 23
-  lda #$01                       ; $CFA7  A9 01
-  sta z:WhiteBox                ; $CFA9  85 27
-  lda #$36                       ; $CFAB  A9 36
-  sta a:BackgroundColor        ; $CFAD  8D 03 04
+  lda #$01                       ; $CFA7  A9 01 - load 01 to the accumulator
+  sta z:WhiteBoxVisible                ; $CFA9  85 27 - make the white box visible
+  lda #$36                       ; $CFAB  A9 36 - load 0x36 to the accumulator
+  sta a:BackgroundColor        ; $CFAD  8D 03 04 - store it to the background color, which 0x36 = red
   sta a:$0407                    ; $CFB0  8D 07 04
   sta a:$040B                    ; $CFB3  8D 0B 04
   sta a:$040F                    ; $CFB6  8D 0F 04
 
-_label_cfb9:
-  rts                            ; $CFB9  60
+;; Just a random rts, used for this one purpose
+ReturnToSubroutineBecauseTargetWasShot:
+  rts                            ; $CFB9  60 - return to subroutine. (TODO: falls back to ignoring the rest of _func_cf96)?
 
 _func_cfba:
   ldx #$00                       ; $CFBA  A2 00
@@ -3280,7 +3281,7 @@ _label_d1e6:
   sty z:_var_0023                ; $D1E8  84 23
   jsr _func_c5d9                 ; $D1EA  20 D9 C5
   ldy #$01                       ; $D1ED  A0 01
-  sty z:WhiteBox                ; $D1EF  84 27
+  sty z:WhiteBoxVisible                ; $D1EF  84 27
   jmp _label_d26a                ; $D1F1  4C 6A D2
 
 _label_d1f4:
@@ -3344,7 +3345,7 @@ _label_d259:
   cmp #$02                       ; $D25B  C9 02
   beq _label_d266                ; $D25D  F0 07
   ldy #$01                       ; $D25F  A0 01
-  sty z:WhiteBox                ; $D261  84 27
+  sty z:WhiteBoxVisible                ; $D261  84 27
   iny                            ; $D263  C8
   bne _label_d268                ; $D264  D0 02
 
@@ -3574,7 +3575,7 @@ _label_d3d1:
   rts                            ; $D3D1  60
 
 _func_d3d2:
-  lda z:WhiteBox                ; $D3D2  A5 27
+  lda z:WhiteBoxVisible                ; $D3D2  A5 27
   bne _label_d427                ; $D3D4  D0 51
   inc z:_var_009b                ; $D3D6  E6 9B
   ldy #$00                       ; $D3D8  A0 00
@@ -3636,7 +3637,7 @@ _func_d428:
   lda z:_var_009a                ; $D430  A5 9A
   and #$07                       ; $D432  29 07
   bne _label_d461                ; $D434  D0 2B
-  lda z:WhiteBox                ; $D436  A5 27
+  lda z:WhiteBoxVisible                ; $D436  A5 27
   bne _label_d427                ; $D438  D0 ED
   lda z:_var_009a                ; $D43A  A5 9A
   and #$08                       ; $D43C  29 08

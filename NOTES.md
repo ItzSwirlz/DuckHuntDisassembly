@@ -47,6 +47,14 @@ It's not a good name but fo now its CurrentActiveDuckTarget.
 ### 00BE
 This was fun to figure out! The game has a 'counter' for how long the game has to wait for the audio to play when the round ends succesfully. When it doesn't, it gets set to 01.. then idk
 
+### 00A9
+I am lost. 
+When set to 0, nothing happens. The game basically pauses.
+When set to 1, the first few notes of the "next round!/round success" chime plays when you finish a round, but then loops.
+When set to 2, it just plays.
+When set to 3, it dumps you into the next round. Even if you should lose the round
+When set to 4, when you finish the round it dumps you straight to the main menu.
+
 ## Background/graphics
 BACKGROUNCOLOR = $0403 ; ??? I'm not sure yet, I just know changing this affects the bg color. 0x21 is the default blue, 0x36 is the "FLY AWAY" red.
 
